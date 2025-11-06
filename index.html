@@ -10,6 +10,16 @@
   </head>
   <body>
     <a-scene>
+      <a-assets>
+        <a-asset-item
+          id="computer"
+          src="/src/models/old_retro_stylized_computer/scene.gltf"
+        ></a-asset-item>
+        <img
+          id="groundTexture"
+          src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_disp_1k.png"
+        />
+      </a-assets>
       <a-box position="0 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
       <a-sphere position="-1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
       <a-cylinder
@@ -19,23 +29,19 @@
         color="#FFC65D"
       ></a-cylinder>
       <a-plane
+        src="#groundTexture"
         position="0 0 -4"
         rotation="-90 0 0"
         width="4"
         height="4"
         color="#b025b8"
       ></a-plane>
-      <a-assets>
-        <a-asset-item
-          id="computer"
-          src="/src/models/old_retro_stylized_computer/scene.gltf"
-        ></a-asset-item>
-      </a-assets>
+
       <a-entity
         gltf-model="#computer"
-        position="0 0.5 -3"
+        position="0 1.2 -3"
         scale="0.1 0.1 0.1"
-        animation="property: object3D.position.y; to: 1; dir: alternate; dur: 2000; loop: false"
+        animation="property: object3D.position.y; to: 1.25; easing: linear; dir: alternate; dur: 2000; loop: true"
       ></a-entity>
       <a-sky color="#87CEEB"></a-sky>
     </a-scene>
