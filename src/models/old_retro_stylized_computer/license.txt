@@ -1,0 +1,8 @@
+Model Information:
+* title:	Old Retro Stylized Computer
+* source:	https://sketchfab.com/3d-models/old-retro-stylized-computer-b11f435540b745429c0412ddcf19a656
+* author:	Shadow (https://sketchfab.com/Shad8xr)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

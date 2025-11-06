@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebXR API / A-Frame: Ch.8 Ex.7 Pts.1 & 2</title>
+    <head>
+      <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    </head>
+  </head>
+  <body>
+    <a-scene>
+      <a-box position="0 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere position="-1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder
+        position="1 0.75 -5"
+        radius="0.5"
+        height="1.5"
+        color="#FFC65D"
+      ></a-cylinder>
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="4"
+        height="4"
+        color="#b025b8"
+      ></a-plane>
+      <a-assets>
+        <a-asset-item
+          id="computer"
+          src="/src/models/old_retro_stylized_computer/scene.gltf"
+        ></a-asset-item>
+      </a-assets>
+      <a-entity
+        gltf-model="#computer"
+        position="0 0.5 -3"
+        scale="0.1 0.1 0.1"
+        animation="property: object3D.position.y; to: 1; dir: alternate; dur: 2000; loop: false"
+      ></a-entity>
+      <a-sky color="#87CEEB"></a-sky>
+    </a-scene>
+  </body>
+  <script type="text/javascript">
+    const texture = new window.THREE.TextureLoader().load(
+      'textures/brick_mat.jpg'
+    );
+
+    texture.anisotropy = 16;
+    texture.minFilter = THREE.NearestFilter;
+    texture.maxFilter = THREE.NearestFilter;
+    //texture.encoding = THREE.sRGBEncoding;
+    const material_tex = new THREE.MeshBasicMaterial({ map: texture });
+    const box = document.querySelector('#cubrick');
+    const mesh = box.getObject3D('mesh');
+
+    mesh.material = material_tex;
+  </script>
+</html>
