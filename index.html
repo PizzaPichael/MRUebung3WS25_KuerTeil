@@ -9,56 +9,90 @@
     </head>
   </head>
   <body>
-    <a-scene>
+    <a-scene light="defaultLightsEnabled: false">
       <a-assets>
         <a-asset-item
           id="computer"
           src="/src/models/old_retro_stylized_computer/scene.gltf"
         ></a-asset-item>
+        <a-asset-item
+          id="lightbulb"
+          src="/src/models/paper_mario_sticker_star_lightbulb/scene.gltf"
+        ></a-asset-item>
+        <img
+          id="computerBaseTexture"
+          src="/src/models/old_retro_stylized_computer/textures/Scene_-_Root_baseColor.png"
+        />
+        <img
+          id="computerNormalTexture"
+          src="/src/models/old_retro_stylized_computer/textures/Scene_-_Root_normal.png"
+        />
+        <img
+          id="bulbTexture"
+          src="/src/models/paper_mario_sticker_star_lightbulb/textures/mLamp_Metal_mat_baseColor.png"
+        />
         <img
           id="groundTexture"
-          src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_disp_1k.png"
+          src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_diff_1k.jpg"
         />
       </a-assets>
-      <a-box position="0 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="-1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-box
+        position="0 0.5 -3"
+        rotation="0 45 0"
+        color="#4CC3D9"
+        shadow=""
+      ></a-box>
+      <a-sphere
+        position="-1 1.25 -5"
+        radius="1.25"
+        color="#EF2D5E"
+        shadow=""
+      ></a-sphere>
       <a-cylinder
         position="1 0.75 -5"
         radius="0.5"
         height="1.5"
         color="#FFC65D"
+        shadow=""
       ></a-cylinder>
       <a-plane
-        src="#groundTexture"
+        material="
+            src: #groundTexture; 
+            repeat: 4 4        "
         position="0 0 -4"
         rotation="-90 0 0"
-        width="4"
-        height="4"
+        width="20"
+        height="20"
         color="#b025b8"
+        shadow=""
       ></a-plane>
-
       <a-entity
+        id="computerObject"
         gltf-model="#computer"
         position="0 1.2 -3"
         scale="0.1 0.1 0.1"
         animation="property: object3D.position.y; to: 1.25; easing: linear; dir: alternate; dur: 2000; loop: true"
+        material="src: #computerBaseTexture; normalMap: #computerNormalTexture; emissive: #edb826; emissiveIntensity: 10"
+        shadow="receive: false"
       ></a-entity>
-      <a-sky color="#87CEEB"></a-sky>
+      <a-entity
+        id="lightbulbmodel"
+        gltf-model="#lightbulb"
+        position="0 3 -2"
+        scale="0.005 0.005 0.005a"
+        rotation="-180 0 0"
+        material="transparent: true; opacity: 0.1; shader: flat;"
+        shadow="receive: false"
+      ></a-entity>
+      <a-sky color="#000000"></a-sky>
+      <a-entity
+        light="type: point; intensity: 1aw; distance: 10; color: white; castShadow: true; "
+        position="0 3 -2"
+      ></a-entity>
+      <a-entity
+        light="type: directional; intensity: 1a; distance: 2; color: white; target: #lightbulbmodel"
+        position="0 2.8 -2"
+      ></a-entity>
     </a-scene>
   </body>
-  <script type="text/javascript">
-    const texture = new window.THREE.TextureLoader().load(
-      'textures/brick_mat.jpg'
-    );
-
-    texture.anisotropy = 16;
-    texture.minFilter = THREE.NearestFilter;
-    texture.maxFilter = THREE.NearestFilter;
-    //texture.encoding = THREE.sRGBEncoding;
-    const material_tex = new THREE.MeshBasicMaterial({ map: texture });
-    const box = document.querySelector('#cubrick');
-    const mesh = box.getObject3D('mesh');
-
-    mesh.material = material_tex;
-  </script>
 </html>

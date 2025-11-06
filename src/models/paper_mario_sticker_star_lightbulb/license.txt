@@ -1,0 +1,8 @@
+Model Information:
+* title:	[Paper Mario: Sticker Star] Lightbulb
+* source:	https://sketchfab.com/3d-models/paper-mario-sticker-star-lightbulb-e1a0bf6ab2ed4194a9c08f263fa74c32
+* author:	Starlight_lambda64 (https://sketchfab.com/Starlight_lambda64)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
