@@ -1,0 +1,8 @@
+Model Information:
+* title:	XYZ Axis
+* source:	https://sketchfab.com/3d-models/xyz-axis-ae3c7d77e867453089c4dd12dc570d00
+* author:	Razz (https://sketchfab.com/thommeter)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

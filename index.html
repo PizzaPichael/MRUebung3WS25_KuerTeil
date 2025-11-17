@@ -19,6 +19,14 @@
           id="lightbulb"
           src="/src/models/paper_mario_sticker_star_lightbulb/scene.gltf"
         ></a-asset-item>
+        <a-asset-item
+          id="stairs"
+          src="/src/models/broken_stairs__concrete__high_poly/scene.gltf"
+        ></a-asset-item>
+        <a-asset-item
+          id="xyzindicator"
+          src="/src/models/xyz_axis/scene.gltf"
+        ></a-asset-item>
         <img
           id="computerBaseTexture"
           src="/src/models/old_retro_stylized_computer/textures/Scene_-_Root_baseColor.png"
@@ -35,13 +43,23 @@
           id="groundTexture"
           src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_diff_1k.jpg"
         />
+        <img
+          id="stairsTexture"
+          src="/src/models/broken_stairs__concrete__high_poly/textures/GhatStairs_baseColor.jpeg"
+        />
       </a-assets>
-      <a-box
-        position="0 0.5 -3"
-        rotation="0 45 0"
-        color="#4CC3D9"
+      <!--
+      <a-entity
+        id="stairsObject"
+        gltf-model="#stairs"
+        position="0 -0.1 -1.8"
+        rotation="0 90 0"
+        scale="0.03 0.05 0.02"
+        material="src: #stairsTexture; normalMap: /src/models/broken_stairs__concrete__high_poly/textures/GhatStairs_metallicRoughness.png"
         shadow=""
-      ></a-box>
+      ></a-entity>
+      -->
+
       <a-sphere
         position="-1 1.25 -5"
         radius="1.25"
@@ -67,12 +85,20 @@
         shadow=""
       ></a-plane>
       <a-entity
+        id="xyzIndicatorObject"
+        gltf-model="#xyzindicator"
+        position="-3 0 -4"
+        rotation="-90 180 0"
+        scale="-0.05 0.05 0.05"
+        shadow="receive: false, cast: false"
+      ></a-entity>
+      <a-entity
         id="computerObject"
         gltf-model="#computer"
         position="0 1.2 -3"
         scale="0.1 0.1 0.1"
         animation="property: object3D.position.y; to: 1.25; easing: linear; dir: alternate; dur: 2000; loop: true"
-        material="src: #computerBaseTexture; normalMap: #computerNormalTexture; emissive: #edb826; emissiveIntensity: 10"
+        material="src: #computerBaseTexture; normalMap: #computerNormalTexture; emissiveIntensity: 1"
         shadow="receive: false"
       ></a-entity>
       <a-entity
@@ -86,11 +112,12 @@
       ></a-entity>
       <a-sky color="#000000"></a-sky>
       <a-entity
-        light="type: point; intensity: 1aw; distance: 10; color: white; castShadow: true; "
+        light="type: point; intensity: 1; distance: 10; color: white; castShadow: true; "
         position="0 3 -2"
       ></a-entity>
+      <!--The next light is for the lightbulb to seem glowing-->
       <a-entity
-        light="type: directional; intensity: 1a; distance: 2; color: white; target: #lightbulbmodel"
+        light="type: directional; intensity: 1; distance: 2; color: white; target: #lightbulbmodel"
         position="0 2.8 -2"
       ></a-entity>
     </a-scene>
