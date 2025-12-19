@@ -12,8 +12,8 @@
     <a-scene light="defaultLightsEnabled: true">
       <a-assets>
         <a-asset-item
-          id="computer"
-          src="/src/models/old_retro_stylized_computer/scene.gltf"
+          id="throneroom"
+          src="/src/models/throneroom/throneroom_project.gltf"
         ></a-asset-item>
         <a-asset-item
           id="lightbulb"
@@ -31,33 +31,25 @@
           id="groundTexture"
           src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_diff_1k.jpg"
         />
+        <a-asset-item
+          id="fackelasset"
+          src="/src/models/Free_Pillar_Torch_gltf/fbxPillar.gltf"
+        ></a-asset-item>
       </a-assets>
-      <a-plane
-        material="
-            src: #groundTexture; 
-            repeat: 4 4        "
-        position="0 0 -4"
-        rotation="-90 0 0"
-        width="20"
-        height="20"
-        color="#b025b8"
-        shadow=""
-      ></a-plane>
+      <a-entity id="rig" position="25 10 0">
+        <a-entity
+          id="camera"
+          camera="active: true"
+          look-controls
+          wasd-controls
+          position="-25 -8.3 0"
+        ></a-entity>
+      </a-entity>
       <a-entity
-        id="xyzIndicatorObject"
-        gltf-model="#xyzindicator"
-        position="-3 0 -4"
-        rotation="-90 180 0"
-        scale="-0.05 0.05 0.05"
-        shadow="receive: false, cast: false"
-      ></a-entity>
-      <a-entity
-        id="computerObject"
-        gltf-model="#computer"
-        position="0 1.2 -3"
-        scale="0.1 0.1 0.1"
-        animation="property: object3D.position.y; to: 1.25; easing: linear; dir: alternate; dur: 2000; loop: true"
-        material="src: #computerBaseTexture; normalMap: #computerNormalTexture; emissiveIntensity: 1"
+        id="throneroomentity"
+        gltf-model="#throneroom"
+        position="0 0 0"
+        scale="1 1 1"
         shadow="receive: false"
       ></a-entity>
     </a-scene>

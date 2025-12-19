@@ -1,0 +1,337 @@
+{
+  "asset": {
+    "generator": "glTF-Transform v4.2.1",
+    "version": "2.0"
+  },
+  "accessors": [
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 3840,
+      "max": [
+        0.3482728600502014,
+        3.5952436923980713,
+        0.3483303487300873
+      ],
+      "min": [
+        -0.3482728600502014,
+        -0.008884787559509277,
+        -0.3483305275440216
+      ],
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 3840,
+      "bufferView": 0,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 3840,
+      "bufferView": 0,
+      "byteOffset": 24
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5125,
+      "count": 3840,
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5125,
+      "count": 24,
+      "bufferView": 1,
+      "byteOffset": 15360
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 24,
+      "max": [
+        0.2481241226196289,
+        2.269008159637451,
+        0.24813038110733032
+      ],
+      "min": [
+        -0.24811720848083496,
+        0.11568188667297363,
+        -0.24813860654830933
+      ],
+      "bufferView": 2,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 24,
+      "bufferView": 2,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 24,
+      "bufferView": 2,
+      "byteOffset": 24
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 122880,
+      "byteStride": 32,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 122880,
+      "byteLength": 15456,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 138336,
+      "byteLength": 768,
+      "byteStride": 32,
+      "target": 34962
+    }
+  ],
+  "samplers": [
+    {
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "textures": [
+    {
+      "source": 0,
+      "sampler": 0
+    },
+    {
+      "source": 1,
+      "sampler": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "textures\\germany010.jpg",
+      "mimeType": "image/jpeg",
+      "uri": "baseColor_1.jpg"
+    },
+    {
+      "name": "textures\\brck91L.jpg",
+      "mimeType": "image/jpeg",
+      "uri": "baseColor_2.jpg"
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "buffer.bin",
+      "byteLength": 139104
+    }
+  ],
+  "materials": [
+    {
+      "name": "lambert3",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1
+        ],
+        "metallicFactor": 0,
+        "baseColorTexture": {
+          "index": 0
+        }
+      }
+    },
+    {
+      "name": "lambert2",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1
+        ],
+        "metallicFactor": 0,
+        "baseColorTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "pillar",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 3
+        },
+        {
+          "attributes": {
+            "POSITION": 5,
+            "NORMAL": 6,
+            "TEXCOORD_0": 7
+          },
+          "mode": 4,
+          "material": 1,
+          "indices": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "RootNode",
+      "children": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "light",
+      "extras": {
+        "UserProperties": "",
+        "IsNull": true,
+        "DefaultAttributeIndex": 0,
+        "InheritType": 1,
+        "RotationActive": true,
+        "ScalingMax": null
+      }
+    },
+    {
+      "name": "hdri",
+      "extras": {
+        "UserProperties": "",
+        "IsNull": true,
+        "DefaultAttributeIndex": 0,
+        "InheritType": 1,
+        "RotationActive": true,
+        "ScalingMax": null
+      }
+    },
+    {
+      "name": "GATE1:light",
+      "extras": {
+        "UserProperties": "",
+        "IsNull": true,
+        "DefaultAttributeIndex": 0,
+        "InheritType": 1,
+        "RotationActive": true,
+        "ScalingMax": null
+      }
+    },
+    {
+      "name": "GATE1:hdri",
+      "extras": {
+        "UserProperties": "",
+        "IsNull": true,
+        "DefaultAttributeIndex": 0,
+        "InheritType": 1,
+        "RotationActive": true,
+        "ScalingMax": null
+      }
+    },
+    {
+      "name": "GATE1:Door_$AssimpFbx$_RotationPivot",
+      "translation": [
+        0,
+        1.4661917686462402,
+        -6.938893903907228e-18
+      ],
+      "children": [
+        6
+      ]
+    },
+    {
+      "name": "GATE1:Door_$AssimpFbx$_RotationPivotInverse",
+      "translation": [
+        0,
+        -1.4661917686462402,
+        6.938893903907228e-18
+      ],
+      "children": [
+        7
+      ]
+    },
+    {
+      "name": "GATE1:Door_$AssimpFbx$_ScalingPivot",
+      "translation": [
+        0,
+        1.4661917686462402,
+        5.551115123125783e-16
+      ],
+      "children": [
+        8
+      ]
+    },
+    {
+      "name": "GATE1:Door_$AssimpFbx$_ScalingPivotInverse",
+      "translation": [
+        0,
+        -1.4661917686462402,
+        -5.551115123125783e-16
+      ],
+      "children": [
+        9
+      ]
+    },
+    {
+      "name": "GATE1:Door",
+      "extras": {
+        "UserProperties": "",
+        "IsNull": true,
+        "DefaultAttributeIndex": 0,
+        "InheritType": 1,
+        "RotationActive": true,
+        "ScalingMax": null
+      },
+      "children": [
+        10
+      ]
+    },
+    {
+      "name": "pillar",
+      "extras": {
+        "UserProperties": "",
+        "IsNull": false,
+        "DefaultAttributeIndex": 0,
+        "InheritType": 1,
+        "RotationActive": true,
+        "ScalingMax": null,
+        "currentUVSet": "map1"
+      },
+      "mesh": 0
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0,
+  "extensionsUsed": [
+    "KHR_materials_volume"
+  ]
+}
