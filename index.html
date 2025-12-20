@@ -4,16 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebXR API / A-Frame: Ch.8 Ex.7 Pts.1 & 2</title>
-    <head>
-      <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    </head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   </head>
   <body>
     <a-scene light="defaultLightsEnabled: true">
       <a-assets>
         <a-asset-item
           id="throneroom"
-          src="/src/models/throneroom/throneroom_project.gltf"
+          src="/src/models/throneroom/throneroom_project.glb"
         ></a-asset-item>
         <a-asset-item
           id="lightbulb"
@@ -36,13 +34,13 @@
           src="/src/models/Free_Pillar_Torch_gltf/fbxPillar.gltf"
         ></a-asset-item>
       </a-assets>
-      <a-entity id="rig" position="25 10 0">
+      <a-entity id="rig">
         <a-entity
           id="camera"
           camera="active: true"
           look-controls
           wasd-controls
-          position="-25 -8.3 0"
+          position="0 1.7 0"
         ></a-entity>
       </a-entity>
       <a-entity
