@@ -4,12 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebXR API / A-Frame: Ch.8 Ex.7 Pts.1 & 2</title>
-    <head>
-      <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    </head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="/src/depth-features.js"></script>
   </head>
   <body>
-    <a-scene light="defaultLightsEnabled: true">
+    <a-scene
+      xr-mode-ui="enterAREnabled: true; enterVREnabled: false; XRMode: ar"
+      real-world-meshin
+      depth-session-config
+      renderer="colorManagement: true; alpha: true"
+      depth-heatmap
+      surface-placement="targetId: lightbulb"
+    >
       <a-assets>
         <a-asset-item
           id="throneroom"
@@ -36,22 +42,62 @@
           src="/src/models/Free_Pillar_Torch_gltf/fbxPillar.gltf"
         ></a-asset-item>
       </a-assets>
-      <a-entity id="rig" position="25 10 0">
-        <a-entity
-          id="camera"
-          camera="active: true"
-          look-controls
-          wasd-controls
-          position="-25 -8.3 0"
-        ></a-entity>
-      </a-entity>
-      <a-entity
-        id="throneroomentity"
-        gltf-model="#throneroom"
-        position="0 0 0"
-        scale="1 1 1"
-        shadow="receive: false"
-      ></a-entity>
+
+      <!-- Kamera für AR -->
+      <a-camera position="0 1.6 0"></a-camera>
     </a-scene>
+    <script>
+      // Korrekte Depth-Sensing Session-Konfiguration
+      AFRAME.registerComponent('depth-session-config', {
+        init: function () {
+          const sceneEl = this.el;
+
+          // Überschreibe die Session-Konfiguration
+          sceneEl.addEventListener('loaded', () => {
+            const originalRequestSession = navigator.xr.requestSession.bind(
+              navigator.xr
+            );
+
+            navigator.xr.requestSession = function (mode, options = {}) {
+              if (mode === 'immersive-ar') {
+                options.requiredFeatures = options.requiredFeatures || [];
+                options.requiredFeatures.push('depth-sensing', 'hit-test');
+
+                options.depthSensing = {
+                  usagePreference: ['cpu-optimized', 'gpu-optimized'],
+                  dataFormatPreference: ['luminance-alpha', 'float32'],
+                };
+              }
+              return originalRequestSession(mode, options);
+            };
+          });
+        },
+      });
+
+      AFRAME.registerComponent('enable-depth', {
+        init: function () {
+          this.el.sceneEl.addEventListener('enter-vr', () => {
+            const session = this.el.sceneEl.renderer.xr.getSession();
+            if (session) {
+              // Depth-Daten sind nun verfügbar
+            }
+          });
+        },
+        tick: function () {
+          const frame = this.el.sceneEl.frame;
+          if (frame) {
+            const pose = frame.getViewerPose(referenceSpace);
+            if (pose) {
+              for (const view of pose.views) {
+                const depthInfo = frame.getDepthInformation(view);
+                if (depthInfo) {
+                  // Nutze depthInfo.data, depthInfo.width, depthInfo.height
+                }
+              }
+            }
+          }
+        },
+      });
+    </script>
   </body>
 </html>
