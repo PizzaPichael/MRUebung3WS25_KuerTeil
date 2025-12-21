@@ -10,12 +10,8 @@
   <body>
     <a-scene
       xr-mode-ui="enterAREnabled: true; enterVREnabled: false; XRMode: ar"
-      real-world-meshin
-      depth-session-config
-      renderer="colorManagement: true; alpha: true"
-      depth-heatmap
-      surface-placement="targetId: lightbulb"
     >
+      <!-- key to add in the scene component: real-world-meshing -->
       <a-assets>
         <a-asset-item
           id="throneroom"
@@ -43,8 +39,13 @@
         ></a-asset-item>
       </a-assets>
 
-      <!-- Kamera für AR -->
-      <a-camera position="0 1.6 0"></a-camera>
+      <!-- Glühbirne in der Mitte des Raumes -->
+      <a-entity
+        id="lightbulb"
+        gltf-model="#lightbulb"
+        position="0 1.5 -50"
+        scale="0.1 0.1 0.1"
+      ></a-entity>
     </a-scene>
     <script>
       // Korrekte Depth-Sensing Session-Konfiguration
