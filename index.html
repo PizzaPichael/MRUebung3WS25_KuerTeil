@@ -3,15 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebXR API / A-Frame: Ch.8 Ex.7 Pts.1 & 2</title>
+    <title>KuerAbgabe WiSe 25/26</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script src="/src/depth-features.js"></script>
+    <script src="/src/ar-mesh-logger.js"></script>
+
+    <!--<script src="/src/ar-components.js"></script>
+    <script src="/src/wall-interactor.js"></script>-->
   </head>
   <body>
     <a-scene
-      xr-mode-ui="enterAREnabled: true; enterVREnabled: false; XRMode: ar"
+      ar-mesh-logger
+      xr-mode-ui="XRMode: ar"
+      webxr="optionalFeatures: hit-test, mesh-detection, plane-detection;"
+      real-world-meshing="filterLabels: wall; meshesEnabled: false; planesEnabled: false"
+      debug
     >
-      <!-- key to add in the scene component: real-world-meshing -->
+      <!-- keys to add in the scene component: 
+       real-world-meshing 
+       surface-placement="targetId: lightbulb"
+       renderer="colorManagement: true; alpha: true"
+      depth-heatmap
+            depth-session-config
+            real-world-meshing="filterLabels: wall; meshesEnabled: false; planesEnabled: true"
+      wall-object-spawner
+      mesh-visualizer
+
+
+       -->
       <a-assets>
         <a-asset-item
           id="throneroom"
@@ -33,6 +51,13 @@
           id="groundTexture"
           src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_diff_1k.jpg"
         />
+        <a-plane
+          rotation="-90 0 0"
+          width="0.2"
+          height="0.2"
+          src="./textures/arrow.png"
+          material="transparent:true;"
+        ></a-plane>
         <a-asset-item
           id="fackelasset"
           src="/src/models/Free_Pillar_Torch_gltf/fbxPillar.gltf"
@@ -45,60 +70,8 @@
         gltf-model="#lightbulb"
         position="0 1.5 -50"
         scale="0.1 0.1 0.1"
+        hide-in-ar-mode
       ></a-entity>
     </a-scene>
-    <script>
-      // Korrekte Depth-Sensing Session-Konfiguration
-      AFRAME.registerComponent('depth-session-config', {
-        init: function () {
-          const sceneEl = this.el;
-
-          // Überschreibe die Session-Konfiguration
-          sceneEl.addEventListener('loaded', () => {
-            const originalRequestSession = navigator.xr.requestSession.bind(
-              navigator.xr
-            );
-
-            navigator.xr.requestSession = function (mode, options = {}) {
-              if (mode === 'immersive-ar') {
-                options.requiredFeatures = options.requiredFeatures || [];
-                options.requiredFeatures.push('depth-sensing', 'hit-test');
-
-                options.depthSensing = {
-                  usagePreference: ['cpu-optimized', 'gpu-optimized'],
-                  dataFormatPreference: ['luminance-alpha', 'float32'],
-                };
-              }
-              return originalRequestSession(mode, options);
-            };
-          });
-        },
-      });
-
-      AFRAME.registerComponent('enable-depth', {
-        init: function () {
-          this.el.sceneEl.addEventListener('enter-vr', () => {
-            const session = this.el.sceneEl.renderer.xr.getSession();
-            if (session) {
-              // Depth-Daten sind nun verfügbar
-            }
-          });
-        },
-        tick: function () {
-          const frame = this.el.sceneEl.frame;
-          if (frame) {
-            const pose = frame.getViewerPose(referenceSpace);
-            if (pose) {
-              for (const view of pose.views) {
-                const depthInfo = frame.getDepthInformation(view);
-                if (depthInfo) {
-                  // Nutze depthInfo.data, depthInfo.width, depthInfo.height
-                }
-              }
-            }
-          }
-        },
-      });
-    </script>
   </body>
 </html>
