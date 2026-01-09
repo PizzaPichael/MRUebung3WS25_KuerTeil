@@ -1,6 +1,7 @@
 /* 
 This component has been written by Copilot, 
 usind the a-frame blog entry https://aframe.io/blog/teleport-component/ as a reference.
+I wasnt able to implement the existing teleport-component as it was too old.
 */
 AFRAME.registerComponent('simple-teleport', {
   schema: {
