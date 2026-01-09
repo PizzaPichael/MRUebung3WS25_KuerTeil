@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebXR API / A-Frame: Ch.8 Ex.7 Pts.1 & 2</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <title>Kuer Abgabe WiSe 25/26</title>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="/src/teleport-component.js"></script>
   </head>
   <body>
     <a-scene light="defaultLightsEnabled: true">
@@ -34,13 +35,22 @@
           src="/src/models/Free_Pillar_Torch_gltf/fbxPillar.gltf"
         ></a-asset-item>
       </a-assets>
-      <a-entity id="rig">
+      <a-entity id="cameraRig">
         <a-entity
-          id="camera"
+          id="head"
           camera="active: true"
           look-controls
           wasd-controls
           position="0 1.7 0"
+        ></a-entity>
+        <a-entity
+          id="left-hand"
+          oculus-touch-controls="hand: left"
+          simple-teleport="cameraRig: #cameraRig"
+        ></a-entity>
+        <a-entity
+          id="right-hand"
+          oculus-touch-controls="hand: right"
         ></a-entity>
       </a-entity>
       <a-entity
@@ -50,6 +60,15 @@
         scale="1 1 1"
         shadow="receive: false"
       ></a-entity>
+      <a-plane
+        id="teleport-ground"
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="50"
+        height="50"
+        material="opacity: 0; transparent: true"
+        visible="false"
+      ></a-plane>
     </a-scene>
   </body>
 </html>
