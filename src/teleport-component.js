@@ -8,7 +8,7 @@ AFRAME.registerComponent('simple-teleport', {
     cameraRig: {type: 'selector', default: '#cameraRig'},
     button: {type: 'string', default: 'trigger'},
     curveHitColor: {type: 'color', default: '#00ff00'},
-    curveMissColor: {type: 'color', default: '#9e0096d2'},
+    curveMissColor: {type: 'color', default: '#9e0096'},
     hitCylinderColor: {type: 'color', default: '#00ffff'},
     hitCylinderRadius: {type: 'number', default: 0.3},
     maxDistance: {type: 'number', default: 10},
