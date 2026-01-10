@@ -5,44 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuer Abgabe WiSe 25/26</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <style>
+      #debug-ui {
+        position: fixed;
+        top: 10px;
+        left: 800px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: monospace;
+        z-index: 9999;
+      }
+      #debug-ui button {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      #debug-ui button:hover {
+        background: #45a049;
+      }
+      #debug-ui label {
+        cursor: pointer;
+        user-select: none;
+      }
+      #debug-ui input[type='checkbox'] {
+        cursor: pointer;
+        margin-left: 5px;
+      }
+    </style>
+
+    <!--Custom scripts-->
     <script src="/src/teleport-component.js"></script>
+    <script src="/src/look-at-camera-component.js"></script>
+    <script src="/src/proximity-detection-by-plane-componente.js"></script>
+    <script src="/src/camera-position-debug.js"></script>
+    <script src="/src/camera-persistence.js"></script>
   </head>
   <body>
-    <a-scene light="defaultLightsEnabled: true">
+    <!-- Debug UI -->
+    <div id="debug-ui">
+      <button id="logCameraBtn">Log Camera Position</button>
+      <label>
+        <input type="checkbox" id="persistCheckbox" />
+        Persist Camera on Reload
+      </label>
+    </div>
+
+    <script>
+      // Button Event Listener
+      document
+        .getElementById('logCameraBtn')
+        .addEventListener('click', function () {
+          const camera = document.querySelector('#head');
+          if (camera && camera.components['camera-position-debug']) {
+            camera.components['camera-position-debug'].logCurrentState();
+          }
+        });
+
+      // Checkbox Event Listener
+      document
+        .getElementById('persistCheckbox')
+        .addEventListener('change', function (e) {
+          const camera = document.querySelector('#head');
+          if (camera && camera.components['camera-persistence']) {
+            camera.setAttribute(
+              'camera-persistence',
+              'enabled',
+              e.target.checked
+            );
+          }
+        });
+    </script>
+
+    <!--Scene-->
+    <a-scene light="defaultLightsEnabled: true" stats>
+      <!--Asset registration-->
       <a-assets>
+        <!--Asset items-->
         <a-asset-item
           id="throneroom"
           src="/src/models/throneroom/throneroom_project.glb"
         ></a-asset-item>
         <a-asset-item
-          id="lightbulb"
-          src="/src/models/paper_mario_sticker_star_lightbulb/scene.gltf"
+          id="stairs"
+          src="/src/models/broken_stairs__concrete__high_poly/scene.gltf"
         ></a-asset-item>
         <a-asset-item
-          id="xyzindicator"
-          src="/src/models/xyz_axis/scene.gltf"
+          id="altar"
+          src="/src/models/altar/scene.gltf"
         ></a-asset-item>
+        <a-asset-item
+          id="lowpoly-altar"
+          src="/src/models/altar_lowpoly_concept/scene.gltf"
+        ></a-asset-item>
+        <a-assets-item
+          id="computer"
+          src="/src/models/old_retro_stylized_computer/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="portable-small-altar"
+          src="/src/models/portable_small_altar/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="curtain-rod"
+          src="/src/models/curtain_rod/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="animated-curtain"
+          src="/src/models/curtain_rod/scene.gltf"
+        ></a-assets-item>
+        <!--Textures-->
         <img
           id="computerBaseTexture"
           src="/src/models/old_retro_stylized_computer/textures/Scene_-_Root_baseColor.png"
         />
-        <img
-          id="groundTexture"
-          src="/src/textures/old_linoleum_flooring_01_1k.blend/old_linoleum_flooring_01_diff_1k.jpg"
-        />
-        <a-asset-item
-          id="fackelasset"
-          src="/src/models/Free_Pillar_Torch_gltf/fbxPillar.gltf"
-        ></a-asset-item>
+        <img id="chatgptscreenshot" src="/src/textures/chatjibbedy-logo.png" />
       </a-assets>
+
+      <!--Entities-->
+      <!--Camera Rig and Controller-->
       <a-entity id="cameraRig">
         <a-entity
           id="head"
           camera="active: true"
           look-controls
-          wasd-controls
-          position="0 1.7 0"
+          wasd-controls="fly: true"
+          position="-14 16 -54"
+          rotation="-21.0 -82.5 0.0"
+          camera-position-debug
+          camera-persistence
         ></a-entity>
+        <!--camera-position-debug-->
+        <!--"0 1.7 -6"-->
         <a-entity
           id="left-hand"
           oculus-touch-controls="hand: left"
@@ -53,13 +152,8 @@
           oculus-touch-controls="hand: right"
         ></a-entity>
       </a-entity>
-      <a-entity
-        id="throneroomentity"
-        gltf-model="#throneroom"
-        position="0 0 0"
-        scale="1 1 1"
-        shadow="receive: false"
-      ></a-entity>
+
+      <!--Teleportation planes-->
       <a-plane
         id="teleport-ground"
         position="0 0 0"
@@ -69,6 +163,110 @@
         material="opacity: 0; transparent: true"
         visible="false"
       ></a-plane>
+
+      <!--Throneroom object-->
+      <a-entity
+        id="throneroomentity"
+        gltf-model="#throneroom"
+        position="0 0 0"
+        scale="4 4 4"
+        shadow="receive: false"
+      ></a-entity>
+
+      <!--Throneroom interior-->
+      <a-entity
+        id="stairsentitiy"
+        gltf-model="#stairs"
+        position="0 -1.2 -40"
+        scale="0.6 0.6 0.6"
+        rotation="0 90 0"
+      >
+      </a-entity>
+      <a-entity
+        id="altar-entitiy"
+        gltf-model="#altar"
+        position="0 6 -50"
+        scale="0.03 0.03 0.03"
+        rotation="0 0 0"
+      >
+      </a-entity>
+      <a-entity
+        id="lowpoly-altar-entitiy"
+        gltf-model="#lowpoly-altar"
+        position="0 0 -30"
+        scale="1 1 1"
+        rotation="0 0 0"
+      >
+      </a-entity>
+      <a-entity
+        id="portable-small-altar-entitiy"
+        gltf-model="#portable-small-altar"
+        position="0 14.5 -56"
+        scale="0.028 0.028 0.028"
+        rotation="0 0 0"
+      >
+      </a-entity>
+      <a-entity
+        id="curtain-rod-entity"
+        gltf-model="#curtain-rod"
+        position="-26.171 34 -51.699"
+        rotation="0 -49.65 0"
+        scale="0.2 0.2 1"
+      >
+      </a-entity>
+      <a-entity
+        id="curtain-rod-entity-two"
+        gltf-model="#curtain-rod"
+        position="26.171 34 -51.699"
+        rotation="0 49.65 0"
+        scale="0.2 0.2 1"
+      >
+      </a-entity>
+      <a-entity
+        id="animated-curtain-entity"
+        gltf-model="#curtain-rod"
+        position="26.171 34 -51.699"
+        rotation="0 49.65 0"
+        scale="0.2 0.2 1"
+      >
+      </a-entity>
+      <a-entity
+        id="computer-entitiy"
+        gltf-model="#computer"
+        position="0 15 -50"
+        scale="1 1 1"
+        rotation="0 0 0"
+        look-at-camera="enabled: false"
+        proximity-plane="
+          target: #computer-proximity-plane; 
+          componentToChange: look-at-camera;
+          compAttrToChange: enabled;
+          compAttrNewBoolValue: true"
+      >
+        <a-plane
+          position="0 4.5 2.23"
+          height="3"
+          width="4.8"
+          color="black"
+        ></a-plane>
+        <a-plane
+          src="#chatgptscreenshot"
+          position="0 4.5 2.25"
+          height="2.5"
+          width="2.5"
+          material="transparent: true; alphaTest: 0.5"
+        >
+        </a-plane>
+      </a-entity>
+      <a-circle
+        id="computer-proximity-plane"
+        position="0 0.03 -25"
+        rotation="-90 0 0"
+        radius="40"
+        color="black"
+        transparent="true"
+        opacity="0"
+      ></a-circle>
     </a-scene>
   </body>
 </html>

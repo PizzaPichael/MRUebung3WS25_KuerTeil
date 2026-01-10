@@ -1,0 +1,11 @@
+Model Information:
+* title:	curtain rod
+* source:	https://sketchfab.com/3d-models/curtain-rod-51d920c3ce0f4ecb9e1bd244f9f52e1c
+* author:	ronian2352 (https://sketchfab.com/ronian2352)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "curtain rod" (https://sketchfab.com/3d-models/curtain-rod-51d920c3ce0f4ecb9e1bd244f9f52e1c) by ronian2352 (https://sketchfab.com/ronian2352) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
