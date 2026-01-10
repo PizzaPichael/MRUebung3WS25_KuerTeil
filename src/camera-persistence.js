@@ -33,8 +33,20 @@ AFRAME.registerComponent('camera-persistence', {
     }
     
     if (savedRotation) {
-      this.el.setAttribute('rotation', savedRotation);
-      console.log('Camera rotation restored:', savedRotation);
+      // Rotation verzögert setzen, nachdem look-controls initialisiert ist
+      setTimeout(() => {
+        this.el.setAttribute('rotation', savedRotation);
+        
+        // look-controls interne Rotation ebenfalls setzen
+        const lookControls = this.el.components['look-controls'];
+        if (lookControls) {
+          const rot = savedRotation.split(' ').map(parseFloat);
+          lookControls.pitchObject.rotation.x = THREE.MathUtils.degToRad(rot[0]);
+          lookControls.yawObject.rotation.y = THREE.MathUtils.degToRad(rot[1]);
+        }
+        
+        console.log('Camera rotation restored:', savedRotation);
+      }, 100);
     }
   },
   
