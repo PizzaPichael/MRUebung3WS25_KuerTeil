@@ -1,3 +1,6 @@
+/*
+This component is for debugging purposes only and has been written by copilot.
+*/
 AFRAME.registerComponent('camera-persistence', {
   schema: {
     enabled: { type: 'boolean', default: false }

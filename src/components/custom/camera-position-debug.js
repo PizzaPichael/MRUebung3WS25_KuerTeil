@@ -1,3 +1,6 @@
+/*
+This component is for debugging purposes only and has been written by copilot.
+*/
 AFRAME.registerComponent('camera-position-debug', {
   schema: {
     threshold: { type: 'number', default: 0.01 }, // Minimale Änderung zum Triggern

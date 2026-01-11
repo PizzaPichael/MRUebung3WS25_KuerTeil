@@ -45,6 +45,7 @@
     <script src="/src/components/custom/proximity-detection-by-plane-componente.js"></script>
     <script src="/src/components/custom/camera-position-debug.js"></script>
     <script src="/src/components/custom/camera-persistence.js"></script>
+    <script src="/src/components/custom/blink-cursor.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -106,6 +107,10 @@
           id="lowpoly-altar"
           src="/src/models/altar_lowpoly_concept/scene.gltf"
         ></a-asset-item>
+        <a-asset-item
+          id="old-paper"
+          src="/src/models/old_paper/scene.gltf"
+        ></a-asset-item>
         <a-assets-item
           id="computer"
           src="/src/models/old_retro_stylized_computer/scene.gltf"
@@ -129,6 +134,14 @@
           src="/src/models/old_retro_stylized_computer/textures/Scene_-_Root_baseColor.png"
         />
         <img id="chatgptscreenshot" src="/src/textures/chatjibbedy-logo.png" />
+        <img
+          id="chatgptuielements"
+          src="/src/textures/chat_gpt_text_input_element_with_greeting.png"
+        />
+        <img
+          id="chatgptuielementswithcursor"
+          src="/src/textures/chat_gpt_text_input_element_with_greeting_and_linecursor.png"
+        />
       </a-assets>
 
       <!--Entities-->
@@ -215,6 +228,24 @@
       >
       </a-entity>
       <a-entity
+        id="old-paper-entitiy"
+        gltf-model="#old-paper"
+        position="0 1.347 -30"
+        rotation="0 90 23.807"
+        scale="0.312 0.5 0.309"
+        ><!---30.023-->
+        <a-plane
+          src="#chatgptuielements"
+          position="0 0.1 0"
+          rotation="-90 -90 0"
+          height="0.63"
+          width="2.92"
+          material="transparent: true; alphaTest: 0.5"
+          blink-cursor="non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor"
+        >
+        </a-plane>
+      </a-entity>
+      <a-entity
         id="white-curtain-entity"
         gltf-model="#white-curtain"
         position="1 0 -59"
@@ -265,6 +296,7 @@
           height="2.5"
           width="2.5"
           material="transparent: true; alphaTest: 0.5"
+          animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
         >
         </a-plane>
       </a-entity>
