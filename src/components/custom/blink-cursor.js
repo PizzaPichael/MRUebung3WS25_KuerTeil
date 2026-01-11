@@ -4,7 +4,7 @@ AFRAME.registerComponent('blink-cursor', {
     cursor_src: { type: 'string', default: ''}
   },
   init: function() {
-    this.waitTime = 1000; // 1 Sekunde
+    this.waitTime = 500; // 1 Sekunde
     this.elapsed = 0;
     this.cursorOn = false;
     this.isActive = true;

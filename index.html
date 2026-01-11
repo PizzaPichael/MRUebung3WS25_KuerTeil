@@ -42,10 +42,11 @@
     <!--Custom scripts-->
     <script src="/src/components/custom/teleport-component.js"></script>
     <script src="/src/components/custom/look-at-camera-component.js"></script>
-    <script src="/src/components/custom/proximity-detection-by-plane-componente.js"></script>
+    <script src="/src/components/custom/proximity-detection-by-circle-componente.js"></script>
     <script src="/src/components/custom/camera-position-debug.js"></script>
     <script src="/src/components/custom/camera-persistence.js"></script>
     <script src="/src/components/custom/blink-cursor.js"></script>
+    <script src="/src/components/custom/paper-glide-upwards.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -233,7 +234,13 @@
         position="0 1.347 -30"
         rotation="0 90 23.807"
         scale="0.312 0.5 0.309"
-        ><!---30.023-->
+        glide-upwards="enabled: false, speed: 0.01"
+        proximity-circle="
+          target: #paper-proximity-plane; 
+          componentToChange: glide-upwards;
+          compAttrToChange: enabled;
+          compAttrNewBoolValue: true"
+      >
         <a-plane
           src="#chatgptuielements"
           position="0 0.1 0"
@@ -245,6 +252,15 @@
         >
         </a-plane>
       </a-entity>
+      <a-circle
+        id="paper-proximity-plane"
+        position="0 0.03 -30"
+        rotation="-90 0 0"
+        radius="5"
+        color="black"
+        transparent="true"
+        opacity="0"
+      ></a-circle>
       <a-entity
         id="white-curtain-entity"
         gltf-model="#white-curtain"
@@ -278,7 +294,8 @@
         scale="1 1 1"
         rotation="0 0 0"
         look-at-camera="enabled: false"
-        proximity-plane="
+        animation="property: position; to: 0 15.5 -50; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
+        proximity-circle="
           target: #computer-proximity-plane; 
           componentToChange: look-at-camera;
           compAttrToChange: enabled;

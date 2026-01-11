@@ -3,7 +3,7 @@ AFRAME.registerComponent('look-at-camera', {
     enabled: { type: 'boolean', default: true },
     speed: { type: 'number', default: 0.05 }
   },
-  
+
   init: function() {
     this.camera = this.el.sceneEl.camera;
     this.initialQuaternion = this.el.object3D.quaternion.clone();
