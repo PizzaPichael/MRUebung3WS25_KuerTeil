@@ -162,6 +162,7 @@
             id="keyboard"
             position="-0.2 -0.15 -0.5"
             a-keyboard
+            visible="false"
           ></a-entity>
           <!-- Mouse input -->
           <a-entity
@@ -204,88 +205,110 @@
 
       <!--Throneroom interior-->
       <!--Altar Area-->
-      <a-entity
-        id="stairsentitiy"
-        gltf-model="#stairs"
-        position="0 -1.2 -40"
-        scale="0.6 0.6 0.6"
-        rotation="0 90 0"
-      >
-      </a-entity>
-      <a-entity
-        id="altar-entitiy"
-        gltf-model="#altar"
-        position="0 6 -50"
-        scale="0.03 0.03 0.03"
-        rotation="0 0 0"
-      >
-      </a-entity>
-      <a-entity
-        id="lowpoly-altar-entitiy"
-        gltf-model="#lowpoly-altar"
-        position="0 0 -30"
-        scale="1 1 1"
-        rotation="0 0 0"
-      >
-      </a-entity>
-      <a-entity
-        id="old-paper-entitiy"
-        gltf-model="#old-paper"
-        position="0 1.347 -30"
-        rotation="0 90 23.807"
-        scale="0.312 0.5 0.309"
-        glide-upwards="enabled: false, speed: 0.01"
-        proximity-circle="
-          target: #paper-proximity-plane; 
-          componentToChange: glide-upwards;
-          compAttrToChange: enabled;
-          compAttrNewBoolValue: true"
-      >
-        <a-plane
-          src="#chatgptuielements"
-          position="0 0.1 0"
-          rotation="-90 -90 0"
-          height="0.63"
-          width="2.92"
-          material="transparent: true; alphaTest: 0.5"
-          blink-cursor="non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor"
+      <!--
+      <a-entity>
+        <a-entity
+          id="stairsentitiy"
+          gltf-model="#stairs"
+          position="0 -1.2 -40"
+          scale="0.6 0.6 0.6"
+          rotation="0 90 0"
         >
-        </a-plane>
+        </a-entity>
+        <a-entity
+          id="altar-entitiy"
+          gltf-model="#altar"
+          position="0 6 -50"
+          scale="0.03 0.03 0.03"
+          rotation="0 0 0"
+        >
+        </a-entity>
       </a-entity>
-      <a-circle
-        id="paper-proximity-plane"
-        position="0 0.03 -30"
-        rotation="-90 0 0"
-        radius="5"
-        color="black"
-        transparent="true"
-        opacity="0"
-      ></a-circle>
-      <a-entity
-        id="white-curtain-entity"
-        gltf-model="#white-curtain"
-        position="1 0 -59"
-        rotation="0 0 0"
-        scale="0.15 0.3 0.2"
-      >
-      </a-entity>
-      <a-entity
-        id="victorian-curtain-entity"
-        gltf-model="#victorian-curtain"
-        position="9 16 -57"
-        rotation="0 0 0"
-        scale="4 8 10"
-      >
-      </a-entity>
-      <a-entity
-        id="victorian-curtain-entity-two"
-        gltf-model="#victorian-curtain"
-        position="-9 16 -57"
-        rotation="0 -180 0"
-        scale="4 8 10"
-      >
+      -->
+
+      <!--Interaktionsterminal-->
+      <a-entity>
+        <a-entity
+          id="lowpoly-altar-entitiy"
+          gltf-model="#lowpoly-altar"
+          position="0 0 -30"
+          scale="1 1 1"
+          rotation="0 0 0"
+        >
+        </a-entity>
+        <a-entity
+          id="old-paper-entitiy"
+          gltf-model="#old-paper"
+          position="0 1.347 -30"
+          rotation="0 90 23.807"
+          scale="0.312 0.5 0.309"
+          glide-upwards="enabled: false, speed: 0.01"
+          proximity-circle="
+            target: #paper-proximity-plane; 
+            componentToChange: glide-upwards;
+            compAttrToChange: enabled;
+            compAttrNewBoolValue: true"
+        >
+          <a-text
+            value="Wie kann ich dir heute helfen, die Welt zu verbessern?"
+            position="0.08 0.11 -0.97"
+            rotation="-90 -90 0"
+            width="2"
+            wrap-count="46"
+            color="black"
+          >
+          </a-text>
+          <a-plane
+            src="#chatgptuielements"
+            position="0 0.1 0"
+            rotation="-90 -90 0"
+            height="0.63"
+            width="2.92"
+            material="transparent: true; alphaTest: 0.5"
+            blink-cursor="non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor"
+          >
+          </a-plane>
+        </a-entity>
+        <a-circle
+          id="paper-proximity-plane"
+          position="0 0.03 -30"
+          rotation="-90 0 0"
+          radius="5"
+          color="black"
+          transparent="true"
+          opacity="0"
+        ></a-circle>
       </a-entity>
 
+      <!--Altar curtains-->
+      <!--
+      <a-entity>
+        <a-entity
+          id="white-curtain-entity"
+          gltf-model="#white-curtain"
+          position="1 0 -59"
+          rotation="0 0 0"
+          scale="0.15 0.3 0.2"
+        >
+        </a-entity>
+        <a-entity
+          id="victorian-curtain-entity"
+          gltf-model="#victorian-curtain"
+          position="9 16 -57"
+          rotation="0 0 0"
+          scale="4 8 10"
+        >
+        </a-entity>
+        <a-entity
+          id="victorian-curtain-entity-two"
+          gltf-model="#victorian-curtain"
+          position="-9 16 -57"
+          rotation="0 -180 0"
+          scale="4 8 10"
+        >
+        </a-entity>
+      </a-entity>
+      -->
       <!--Computer-->
       <a-entity
         id="computer-entitiy"
@@ -309,7 +332,7 @@
         ></a-plane>
         <a-plane
           src="#chatgptscreenshot"
-          position="0 4.5 2.25"
+          position="0 4.5 2.27"
           height="2.5"
           width="2.5"
           material="transparent: true; alphaTest: 0.5"
