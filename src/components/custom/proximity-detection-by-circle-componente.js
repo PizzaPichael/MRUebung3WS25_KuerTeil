@@ -10,9 +10,16 @@ AFRAME.registerComponent('proximity-circle', {
         this.targetWorldPos = new THREE.Vector3(); 
         this.data.target.object3D.getWorldPosition(this.targetWorldPos);
         this.targetRadius = this.data.target.getAttribute('radius') || 0;
-        this.camera = this.el.sceneEl.camera;
+        this.camera = null;
         this.isActive = true;
-        if (this.data.componentToChange != '' && this.data.compAttrToChange != '') {
+        this.isSimpleComponent = false;
+        if(this.data.compAttrToChange === '') {
+            console.log(this.data.componentToChange);
+            const componentSchema = AFRAME.components[this.data.componentToChange].schema;
+            this.isSimpleComponent = !!componentSchema.type; 
+            console.log(this.isSimpleComponsent);
+        }
+        if (this.data.componentToChange != '') {
             this.changeComponent = this.el.components[this.data.componentToChange];
             this.isActive = true;
         } else {
@@ -23,6 +30,11 @@ AFRAME.registerComponent('proximity-circle', {
     },
 
     checkIfCameraInTarget: function() {
+        if (!this.camera) {
+            this.camera = this.el.sceneEl.camera;
+            if (!this.camera) return;
+        }
+        
         const cameraWorldPosition = new THREE.Vector3();
         this.camera.getWorldPosition(cameraWorldPosition);
 
@@ -41,11 +53,19 @@ AFRAME.registerComponent('proximity-circle', {
 
         this.checkIfCameraInTarget();
         if(this.cameraInsideTarget === true) {
-            this.el.setAttribute(this.data.componentToChange, this.data.compAttrToChange, this.data.compAttrNewBoolValue);
+            if (this.isSimpleComponent) {
+                this.el.setAttribute(this.data.componentToChange, this.data.compAttrNewBoolValue);
+            } else {
+                this.el.setAttribute(this.data.componentToChange, this.data.compAttrToChange, this.data.compAttrNewBoolValue);
+            }
         }
     
         if(this.cameraInsideTarget === false) {
-            this.el.setAttribute(this.data.componentToChange, this.data.compAttrToChange, !this.data.compAttrNewBoolValue);
+            if (!this.isSimpleComponent) {
+                this.el.setAttribute(this.data.componentToChange, !this.data.compAttrNewBoolValue);
+            } else {
+                this.el.setAttribute(this.data.componentToChange, this.data.compAttrToChange, !this.data.compAttrNewBoolValue);
+            }
         }
     }
 });
