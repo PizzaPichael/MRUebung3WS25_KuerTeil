@@ -9,11 +9,9 @@ AFRAME.registerComponent('look-at-camera', {
     this.lookAtIdle = false;
     this.idleEntity = null;
 
-    console.log("ID:", this.el.id, " idleEntity: ", this.data.idleEntityId);
     if (this.data.idleEntityId != '') {
       this.lookAtIdle = true;
       this.idleEntity = this.el.sceneEl.querySelector(this.data.idleEntityId);
-      console.log("idleEntity: ", this.idleEntity)
     }
     this.camera = this.el.sceneEl.camera;
     this.initialQuaternion = this.el.object3D.quaternion.clone();

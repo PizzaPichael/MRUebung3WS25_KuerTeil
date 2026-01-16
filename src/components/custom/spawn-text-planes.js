@@ -48,7 +48,6 @@ AFRAME.registerComponent('spawn-text-planes', {
                 ]
 
             });
-            console.log()
 
             const textEl = document.createElement('a-text');
             textEl.setAttribute('value', text);
