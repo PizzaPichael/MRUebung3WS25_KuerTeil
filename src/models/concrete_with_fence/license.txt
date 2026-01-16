@@ -1,0 +1,11 @@
+Model Information:
+* title:	Concrete with fence
+* source:	https://sketchfab.com/3d-models/concrete-with-fence-c388ac2189104bc38b155e81ce59330b
+* author:	aVine (https://sketchfab.com/aVine)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Concrete with fence" (https://sketchfab.com/3d-models/concrete-with-fence-c388ac2189104bc38b155e81ce59330b) by aVine (https://sketchfab.com/aVine) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

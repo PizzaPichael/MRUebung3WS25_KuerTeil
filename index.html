@@ -47,6 +47,8 @@
     <script src="/src/components/custom/camera-persistence.js"></script>
     <script src="/src/components/custom/blink-cursor.js"></script>
     <script src="/src/components/custom/paper-glide-upwards.js"></script>
+    <script src="/src/components/custom/spiral-movement.js"></script>
+    <script src="/src/components/custom/spawn-text-planes.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -90,7 +92,7 @@
     <!--Scene-->
     <a-scene light="defaultLightsEnabled: true" stats>
       <!--Asset registration-->
-      <a-assets>
+      <a-assets id="asset-registration">
         <!--Asset items-->
         <a-asset-item
           id="throneroom"
@@ -128,6 +130,22 @@
           id="victorian-curtain"
           src="/src/models/victorian_curtain/scene.gltf"
         ></a-assets-item>
+        <a-assets-item
+          id="generator"
+          src="/src/models/o2_generator/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="fence"
+          src="/src/models/big_fence/scene_multiple.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="socket"
+          src="/src/models/europe_wall_socket/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="diesel-generator"
+          src="/src/models/diesel_generator_low-poly_game_asset/scene.gltf"
+        ></a-assets-item>
 
         <!--Textures-->
         <img
@@ -142,6 +160,18 @@
         <img
           id="chatgptuielementswithcursor"
           src="/src/textures/chat_gpt_text_input_element_with_greeting_and_linecursor.png"
+        />
+        <img
+          id="chessfloor-diff"
+          src="/src/textures/floor_tiles_06_1k/textures/floor_tiles_06_diff_1k.jpg"
+        />
+        <img
+          id="chessfloor-disp"
+          src="/src/textures/floor_tiles_06_1k/textures/floor_tiles_06_disp_1k.jpg"
+        />
+        <img
+          id="chessfloor-rough"
+          src="/src/textures/floor_tiles_06_1k/textures/floor_tiles_06_rough_1k.jpg"
         />
       </a-assets>
 
@@ -206,7 +236,7 @@
       <!--Throneroom interior-->
       <!--Altar Area-->
       <!--
-      <a-entity>
+      <a-entity id="altar">
         <a-entity
           id="stairsentitiy"
           gltf-model="#stairs"
@@ -227,7 +257,7 @@
       -->
 
       <!--Interaktionsterminal-->
-      <a-entity>
+      <a-entity id="terminal">
         <a-entity
           id="lowpoly-altar-entitiy"
           gltf-model="#lowpoly-altar"
@@ -282,7 +312,7 @@
 
       <!--Altar curtains-->
       <!--
-      <a-entity>
+      <a-entity id="altar-curtains">
         <a-entity
           id="white-curtain-entity"
           gltf-model="#white-curtain"
@@ -309,63 +339,135 @@
         </a-entity>
       </a-entity>
       -->
+
       <!--Computer-->
-      <a-entity
-        id="computer-entitiy"
-        gltf-model="#computer"
-        position="0 15 -50"
-        scale="1 1 1"
-        rotation="0 0 0"
-        look-at-camera="enabled: false"
-        animation="property: position; to: 0 15.5 -50; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
-        proximity-circle="
-          target: #computer-proximity-plane; 
-          componentToChange: look-at-camera;
-          compAttrToChange: enabled;
-          compAttrNewBoolValue: true"
-      >
-        <a-plane
-          position="0 4.5 2.23"
-          height="3"
-          width="4.8"
-          color="black"
-        ></a-plane>
-        <a-plane
-          src="#chatgptscreenshot"
-          position="0 4.5 2.27"
-          height="2.5"
-          width="2.5"
-          material="transparent: true; alphaTest: 0.5"
-          animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
+      <a-entity id="computer">
+        <a-entity
+          id="computer-entitiy"
+          gltf-model="#computer"
+          position="0 15 -50"
+          scale="1 1 1"
+          rotation="0 0 0"
+          look-at-camera="enabled: false"
+          animation="property: position; to: 0 15.5 -50; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
+          proximity-circle="
+            target: #computer-proximity-plane; 
+            componentToChange: look-at-camera;
+            compAttrToChange: enabled;
+            compAttrNewBoolValue: true"
         >
-        </a-plane>
+          <a-plane
+            position="0 4.5 2.23"
+            height="3"
+            width="4.8"
+            color="black"
+          ></a-plane>
+          <a-plane
+            src="#chatgptscreenshot"
+            position="0 4.5 2.27"
+            height="2.5"
+            width="2.5"
+            material="transparent: true; alphaTest: 0.5"
+            animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
+          >
+          </a-plane>
+        </a-entity>
+        <a-circle
+          id="computer-proximity-plane"
+          position="0 0.03 -25"
+          rotation="-90 0 0"
+          radius="40"
+          color="black"
+          transparent="true"
+          opacity="0"
+        ></a-circle>
       </a-entity>
-      <a-circle
-        id="computer-proximity-plane"
-        position="0 0.03 -25"
-        rotation="-90 0 0"
-        radius="40"
-        color="black"
-        transparent="true"
-        opacity="0"
-      ></a-circle>
+
+      <!--Blackbox room-->
+      <a-entity id="blackbox">
+        <a-entity
+          id="generator-entity"
+          gltf-model="#generator"
+          position="-0.7 0 -144.3"
+        >
+        </a-entity>
+        <a-entity
+          id="socket-entity"
+          gltf-model="#socket"
+          position="-0.056 0.873 -140.916"
+          rotation="0 -90 0"
+        >
+        </a-entity>
+        <a-entity
+          id="diesel-generator-entity"
+          gltf-model="#diesel-generator"
+          position="-0.441 0 -141.585"
+          rotation="0 -90 0"
+          scale="2 2 2"
+        >
+        </a-entity>
+        <a-circle
+          id="room-proximity-plane"
+          position="-0.441 0.09 -141.585"
+          rotation="-90 0 0"
+          radius="22"
+          color="red"
+          transparent="true"
+          opacity="0"
+        ></a-circle>
+        <a-circle
+          id="generator-proximity-plane"
+          position="-0.441 0.1 -141.585"
+          rotation="-90 0 0"
+          radius="15"
+          color="black"
+          transparent="true"
+          opacity="0"
+        ></a-circle>
+
+        <a-entity
+          id="fence-entity"
+          gltf-model="#fence"
+          position="-2.85 0 -119.5"
+          rotation="0 90 0"
+        >
+        </a-entity>
+        <a-plane
+          src="#chessfloor-diff"
+          displacementMap="#chessfloor-disp"
+          displacementScale="0.5"
+          position="0 0.01 -134.5"
+          scale="6 30 0"
+          repeat="3 15"
+          rotation="-90 0 0"
+        ></a-plane>
+
+        <!--Info screens-->
+        <a-entity
+          spawn-text-planes="texts: Missing transparency, Racial Profiling, Water scarcity, Discrimination, Distortion, Dominance of large tech companies, Desinformation, Rising temperatures, Light polution, Lazyness, Unfair;
+          proximityPlaneStopIdleFocus: #room-proximity-plane; 
+          proximityPlaneStopSpiral: #generator-proximity-plane"
+        ></a-entity>
+      </a-entity>
 
       <!--Curtains area-->
-      <a-entity
-        id="curtain-rod-entity"
-        gltf-model="#curtain-rod"
-        position="-26.171 34 -51.699"
-        rotation="0 -49.65 0"
-        scale="0.2 0.2 1"
-      >
-      </a-entity>
-      <a-entity
-        id="curtain-rod-entity-two"
-        gltf-model="#curtain-rod"
-        position="26.171 34 -51.699"
-        rotation="0 49.65 0"
-        scale="0.2 0.2 1"
-      >
+      <a-entity id="curtains">
+        <a-entity
+          id="curtain-rod-entity"
+          gltf-model="#curtain-rod"
+          position="-26.171 34 -51.699"
+          rotation="0 -49.65 0"
+          scale="0.2 0.2 1"
+        >
+        </a-entity>
+        <a-entity
+          id="curtain-rod-entity-two"
+          gltf-model="#curtain-rod"
+          position="26.171 34 -51.699"
+          rotation="0 49.65 0"
+          scale="0.2 0.2 1"
+        >
+        </a-entity>
       </a-entity>
     </a-scene>
   </body>
