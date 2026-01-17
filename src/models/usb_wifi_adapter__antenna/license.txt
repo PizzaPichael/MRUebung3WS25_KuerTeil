@@ -1,0 +1,11 @@
+Model Information:
+* title:	Usb wifi adapter / antenna
+* source:	https://sketchfab.com/3d-models/usb-wifi-adapter-antenna-8da79bbc26eb439bafbf4c17a76700f8
+* author:	MaarenMaes (https://sketchfab.com/maarenmaes)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Usb wifi adapter / antenna" (https://sketchfab.com/3d-models/usb-wifi-adapter-antenna-8da79bbc26eb439bafbf4c17a76700f8) by MaarenMaes (https://sketchfab.com/maarenmaes) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

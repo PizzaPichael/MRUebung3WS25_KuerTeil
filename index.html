@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuer Abgabe WiSe 25/26</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.4/dist/aframe-physics-system.min.js"></script>
+
+    <!--The debug UI has been added by copilot-->
     <style>
       #debug-ui {
         position: fixed;
@@ -50,12 +53,13 @@
     <script src="/src/components/custom/paper-glide-upwards.js"></script>
     <script src="/src/components/custom/spiral-movement.js"></script>
     <script src="/src/components/custom/spawn-text-planes.js"></script>
+    <script src="/src/components/custom/physics-cable.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
   </head>
   <body>
-    <!-- Debug UI -->
+    <!-- Debug UI, written by Copilot -->
     <div id="debug-ui">
       <button id="logCameraBtn">Log Camera Position</button>
       <label>
@@ -65,7 +69,7 @@
     </div>
 
     <script>
-      // Button Event Listener
+      // Button Event Listener, written by Copilot
       document
         .getElementById('logCameraBtn')
         .addEventListener('click', function () {
@@ -75,7 +79,7 @@
           }
         });
 
-      // Checkbox Event Listener
+      // Checkbox Event Listener, written by Copilot
       document
         .getElementById('persistCheckbox')
         .addEventListener('change', function (e) {
@@ -91,7 +95,11 @@
     </script>
 
     <!--Scene-->
-    <a-scene light="defaultLightsEnabled: true" stats>
+    <a-scene
+      light="defaultLightsEnabled: true"
+      stats
+      physics=" driver: ammo; debug: true; debugDrawMode: 1;"
+    >
       <!--Asset registration-->
       <a-assets id="asset-registration">
         <!--Asset items-->
@@ -146,6 +154,14 @@
         <a-assets-item
           id="diesel-generator"
           src="/src/models/diesel_generator_low-poly_game_asset/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="plug"
+          src="/src/models/power_plug_european/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="antenna"
+          src="/src/models/usb_wifi_adapter__antenna/scene.gltf"
         ></a-assets-item>
 
         <!--Textures-->
@@ -223,6 +239,8 @@
         height="50"
         material="opacity: 0; transparent: true"
         visible="false"
+        ammo-body="type: static"
+        ammo-shape="type: box"
       ></a-plane>
 
       <!--Throneroom object-->
@@ -234,6 +252,18 @@
         shadow="receive: false"
       ></a-entity>
 
+      <!--Throneroom collision (vereinfachte Box für Boden)-->
+      <a-box
+        id="throneroom-floor-collision"
+        position="0 0.01 -25"
+        width="160"
+        height="0.001"
+        depth="240"
+        visible="false"
+        ammo-body="type: static"
+        ammo-shape="type: box"
+      ></a-box>
+
       <!--Throneroom interior-->
       <!--Altar Area-->
       <!--
@@ -244,6 +274,8 @@
           position="0 -1.2 -40"
           scale="0.6 0.6 0.6"
           rotation="0 90 0"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -252,6 +284,8 @@
           position="0 6 -50"
           scale="0.03 0.03 0.03"
           rotation="0 0 0"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
       </a-entity>
@@ -265,6 +299,8 @@
           position="0 0 -30"
           scale="1 1 1"
           rotation="0 0 0"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -279,6 +315,8 @@
             componentToChange: glide-upwards;
             compAttrToChange: enabled;
             compAttrNewBoolValue: true"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
           <a-text
             value="Wie kann ich dir heute helfen, die Welt zu verbessern?"
@@ -287,6 +325,8 @@
             width="2"
             wrap-count="46"
             color="black"
+            ammo-body="type: static"
+            ammo-shape="type: box"
           >
           </a-text>
           <a-plane
@@ -297,6 +337,8 @@
             width="2.92"
             material="transparent: true; alphaTest: 0.5"
             blink-cursor="non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor"
+            ammo-body="type: static"
+            ammo-shape="type: box"
           >
           </a-plane>
         </a-entity>
@@ -308,6 +350,8 @@
           color="black"
           transparent="true"
           opacity="0"
+          ammo-body="type: static"
+          ammo-shape="type: box"
         ></a-circle>
       </a-entity>
 
@@ -320,6 +364,8 @@
           position="1 0 -59"
           rotation="0 0 0"
           scale="0.15 0.3 0.2"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -328,6 +374,8 @@
           position="9 16 -57"
           rotation="0 0 0"
           scale="4 8 10"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -336,6 +384,8 @@
           position="-9 16 -57"
           rotation="0 -180 0"
           scale="4 8 10"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
       </a-entity>
@@ -356,12 +406,16 @@
             componentToChange: look-at-camera;
             compAttrToChange: enabled;
             compAttrNewBoolValue: true"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
           <a-plane
             position="0 4.5 2.23"
             height="3"
             width="4.8"
             color="black"
+            ammo-body="type: static"
+            ammo-shape="type: box"
           ></a-plane>
           <a-plane
             src="#chatgptscreenshot"
@@ -370,6 +424,8 @@
             width="2.5"
             material="transparent: true; alphaTest: 0.5"
             animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
+            ammo-body="type: static"
+            ammo-shape="type: box"
           >
           </a-plane>
         </a-entity>
@@ -381,6 +437,8 @@
           color="black"
           transparent="true"
           opacity="0"
+          ammo-body="type: static"
+          ammo-shape="type: box"
         ></a-circle>
       </a-entity>
 
@@ -390,6 +448,8 @@
           id="generator-entity"
           gltf-model="#generator"
           position="-0.7 0 -144.3"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -397,6 +457,28 @@
           gltf-model="#socket"
           position="-0.056 0.873 -140.916"
           rotation="0 -90 0"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
+        >
+        </a-entity>
+        <a-entity
+          id="plug-entity"
+          gltf-model="#plug"
+          position="-0.056 1.028 -141.05"
+          rotation="0 180 180"
+          scale="0.27 0.27 0.27"
+          ammo-body="type: static"
+          ammo-shape="type: mesh"
+        >
+        </a-entity>
+        <a-entity
+          id="antenna-entity"
+          gltf-model="#antenna"
+          position="-0.11 1.367 -140.662"
+          rotation="-2.159 -91.674 -52.187"
+          scale="0.27 0.27 0.27"
+          ammo-body="type: static"
+          ammo-shape="type: mesh"
         >
         </a-entity>
         <a-entity
@@ -405,8 +487,20 @@
           position="-0.441 0 -141.585"
           rotation="0 -90 0"
           scale="2 2 2"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
+
+        <a-box
+          id="dynamic-test"
+          position="-0 3 -121.585"
+          width="1"
+          height="1"
+          depth="1"
+          ammo-body="type: dynamic"
+          ammo-shape="type: box"
+        ></a-box>
         <a-circle
           id="room-proximity-plane"
           position="-0.441 0.09 -141.585"
@@ -431,6 +525,8 @@
           gltf-model="#fence"
           position="-2.85 0 -119.5"
           rotation="0 90 0"
+          ammo-body="type: static"
+          ammo-shape="type: mesh"
         >
         </a-entity>
         <a-plane
@@ -441,14 +537,17 @@
           scale="6 30 0"
           repeat="3 15"
           rotation="-90 0 0"
+          ammo-body="type: static"
+          ammo-shape="type: box"
         ></a-plane>
 
         <!--Info screens-->
+        <!--
         <a-entity
           spawn-text-planes="texts: Missing transparency, Racial Profiling, Water scarcity, Discrimination, Distortion, Dominance of large tech companies, Desinformation, Rising temperatures, Light polution, Lazyness, Unfair;
           proximityPlaneStopIdleFocus: #room-proximity-plane; 
           proximityPlaneStopSpiral: #generator-proximity-plane"
-        ></a-entity>
+        ></a-entity>-->
       </a-entity>
 
       <!--Curtains area-->
@@ -459,6 +558,8 @@
           position="-26.171 34 -51.699"
           rotation="0 -49.65 0"
           scale="0.2 0.2 1"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -467,6 +568,8 @@
           position="26.171 34 -51.699"
           rotation="0 49.65 0"
           scale="0.2 0.2 1"
+          ammo-body="type: static"
+          ammo-shape="type: hull"
         >
         </a-entity>
       </a-entity>
