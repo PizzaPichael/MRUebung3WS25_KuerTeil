@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -53,7 +53,6 @@
     <script src="/src/components/custom/paper-glide-upwards.js"></script>
     <script src="/src/components/custom/spiral-movement.js"></script>
     <script src="/src/components/custom/spawn-text-planes.js"></script>
-    <script src="/src/components/custom/physics-cable.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -88,7 +87,7 @@
             camera.setAttribute(
               'camera-persistence',
               'enabled',
-              e.target.checked
+              e.target.checked,
             );
           }
         });
@@ -162,6 +161,10 @@
         <a-assets-item
           id="antenna"
           src="/src/models/usb_wifi_adapter__antenna/scene.gltf"
+        ></a-assets-item>
+        <a-assets-item
+          id="antenna-plug"
+          src="/src/models/antenna_plug/untitled.gltf"
         ></a-assets-item>
 
         <!--Textures-->
@@ -463,24 +466,15 @@
         </a-entity>
         <a-entity
           id="plug-entity"
-          gltf-model="#plug"
+          gltf-model="#antenna-plug"
           position="-0.056 1.028 -141.05"
           rotation="0 180 180"
           scale="0.27 0.27 0.27"
-          ammo-body="type: static"
-          ammo-shape="type: mesh"
+          ammo-body="type: dynamic"
+          ammo-shape="type: hull"
         >
         </a-entity>
-        <a-entity
-          id="antenna-entity"
-          gltf-model="#antenna"
-          position="-0.11 1.367 -140.662"
-          rotation="-2.159 -91.674 -52.187"
-          scale="0.27 0.27 0.27"
-          ammo-body="type: static"
-          ammo-shape="type: mesh"
-        >
-        </a-entity>
+
         <a-entity
           id="diesel-generator-entity"
           gltf-model="#diesel-generator"
@@ -547,7 +541,8 @@
           spawn-text-planes="texts: Missing transparency, Racial Profiling, Water scarcity, Discrimination, Distortion, Dominance of large tech companies, Desinformation, Rising temperatures, Light polution, Lazyness, Unfair;
           proximityPlaneStopIdleFocus: #room-proximity-plane; 
           proximityPlaneStopSpiral: #generator-proximity-plane"
-        ></a-entity>-->
+        ></a-entity
+        >-->
       </a-entity>
 
       <!--Curtains area-->
