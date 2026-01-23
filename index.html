@@ -224,13 +224,10 @@
         <!--starting player pos = "0 1.7 -6"-->
         <a-entity
           id="left-hand"
-          oculus-touch-controls="hand: left"
+          meta-touch-controls="hand: left"
           simple-teleport="cameraRig: #cameraRig"
         ></a-entity>
-        <a-entity
-          id="right-hand"
-          oculus-touch-controls="hand: right"
-        ></a-entity>
+        <a-entity id="right-hand" meta-touch-controls="hand: right"></a-entity>
       </a-entity>
 
       <!--Teleportation planes-->
