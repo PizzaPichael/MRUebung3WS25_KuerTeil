@@ -7,6 +7,7 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.4/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.1/dist/aframe-extras.min.js"></script>
 
     <!--The debug UI has been added by copilot-->
     <style>
@@ -53,6 +54,8 @@
     <script src="/src/components/custom/paper-glide-upwards.js"></script>
     <script src="/src/components/custom/spiral-movement.js"></script>
     <script src="/src/components/custom/spawn-text-planes.js"></script>
+    <script src="/src/components/custom/hand-grab.js"></script>
+    <script src="/src/components/custom/grabbable-custom.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -226,8 +229,13 @@
           id="left-hand"
           meta-touch-controls="hand: left"
           simple-teleport="cameraRig: #cameraRig"
+          hand-grab
         ></a-entity>
-        <a-entity id="right-hand" meta-touch-controls="hand: right"></a-entity>
+        <a-entity
+          id="right-hand"
+          meta-touch-controls="hand: right"
+          hand-grab
+        ></a-entity>
       </a-entity>
 
       <!--Teleportation planes-->
@@ -457,8 +465,6 @@
           gltf-model="#socket"
           position="-0.056 0.873 -140.916"
           rotation="0 -90 0"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
         >
         </a-entity>
         <a-entity
@@ -467,10 +473,12 @@
           position="-0.056 1.028 -141.05"
           rotation="0 180 180"
           scale="0.27 0.27 0.27"
-          ammo-body="type: dynamic"
+          ammo-body="type: dynamic; gravity: 0 0 0"
           ammo-shape="type: hull"
+          grabbable-custom="changeEntityPhysicsToDynamic: true"
         >
-        </a-entity>
+        </a-entity
+        ><!---0.056 1.028 -141.05-->
 
         <a-entity
           id="diesel-generator-entity"
@@ -478,8 +486,6 @@
           position="-0.441 0 -141.585"
           rotation="0 -90 0"
           scale="2 2 2"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
         >
         </a-entity>
 

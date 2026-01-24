@@ -37,12 +37,16 @@ AFRAME.registerComponent('camera-persistence', {
   onEnterVR: function () {
     this.isVRMode = true;
     console.log('Entered VR mode');
-    // Im VR-Modus Position wiederherstellen, aber nicht Rotation (kommt vom Headset)
+
+    // Restore the last saved position after a short delay to ensure WebXR is initialized
     if (this.data.enabled) {
       const savedPosition = localStorage.getItem('cameraPosition');
       if (savedPosition) {
-        this.el.setAttribute('position', savedPosition);
-        console.log('Camera position restored in VR:', savedPosition);
+        const position = savedPosition.split(' ').map(parseFloat);
+        setTimeout(() => {
+          this.el.object3D.position.set(position[0], position[1], position[2]);
+          console.log('Camera position restored in VR after WebXR initialization:', savedPosition);
+        }, 500); // Delay to ensure WebXR initialization
       }
     }
   },
