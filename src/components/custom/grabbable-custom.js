@@ -1,4 +1,5 @@
-// This component was written in collaboration with GitHub Copilot to make objects grabbable in VR scenes.
+// This component was written in collaboration with GitHub Copilot to make objects grabbable in VR scenes
+// as the exsiting packages I could not get to work with my project.
 
 AFRAME.registerComponent('grabbable-custom', {
     schema: { 
@@ -27,10 +28,16 @@ AFRAME.registerComponent('grabbable-custom', {
     },
 
     onGrabStart: function () {
+        console.log('onGrabStart');
         if (this.originalBodyType === 'static') {
             this.el.setAttribute('ammo-body', 'type', 'kinematic');
         }
         this.isGrabbed = true;
+        if(this.data.isPlug) {
+            console.log('emitting plug-grabbed event');
+            console.log('el', this.el);
+            this.el.emit('plug-grabbed');
+        }
 
         // Disable gravity while the object is grabbed
         this.el.setAttribute('ammo-body', 'gravity', '0 0 0');

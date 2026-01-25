@@ -1,4 +1,5 @@
-// This component was written in collaboration with GitHub Copilot to enable grabbing and releasing objects in VR scenes.
+// This component was written in collaboration with GitHub Copilot to enable grabbing and releasing objects in VR scenes
+// as the exsiting packages I could not get to work with my project.
 AFRAME.registerComponent('hand-grab', {
     schema: {
 
@@ -31,7 +32,7 @@ AFRAME.registerComponent('hand-grab', {
 
         for (let i = 0; i < objects.length; i++) {
             const object = objects[i];
-
+            console.log('object', object);
             let mesh = null;
             object.object3D.traverse((child) => {
                 if (child.isMesh && !mesh) {

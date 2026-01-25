@@ -56,6 +56,9 @@
     <script src="/src/components/custom/spawn-text-planes.js"></script>
     <script src="/src/components/custom/hand-grab.js"></script>
     <script src="/src/components/custom/grabbable-custom.js"></script>
+    <script src="/src/components/custom/on-event-activate-gravity.js"></script>
+    <script src="/src/components/custom/on-event-switch-visibility.js"></script>
+    <script src="/src/components/custom/on-event-teleport.js"></script>
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -258,6 +261,7 @@
         position="0 0 0"
         scale="4 4 4"
         shadow="receive: false"
+        visible="true"
       ></a-entity>
 
       <!--Throneroom collision (vereinfachte Box für Boden)-->
@@ -274,7 +278,7 @@
 
       <!--Throneroom interior-->
       <!--Altar Area-->
-      <!--
+      
       <a-entity id="altar">
         <a-entity
           id="stairsentitiy"
@@ -283,24 +287,26 @@
           scale="0.6 0.6 0.6"
           rotation="0 90 0"
           ammo-body="type: static"
-          ammo-shape="type: hull"
+          ammo-shape="type: hull; offset: 6 4.7 0"
+          visible="true"
         >
         </a-entity>
         <a-entity
           id="altar-entitiy"
           gltf-model="#altar"
           position="0 6 -50"
+          visible="true"
           scale="0.03 0.03 0.03"
           rotation="0 0 0"
           ammo-body="type: static"
-          ammo-shape="type: hull"
+          ammo-shape="type: box; offset: 0 3.8 0"
         >
         </a-entity>
       </a-entity>
-      -->
+      <!-- -->
 
       <!--Interaktionsterminal-->
-      <a-entity id="terminal">
+      <a-entity id="terminal" visible="false">
         <a-entity
           id="lowpoly-altar-entitiy"
           gltf-model="#lowpoly-altar"
@@ -309,6 +315,7 @@
           rotation="0 0 0"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
         <a-entity
@@ -317,6 +324,7 @@
           position="0 1.347 -30"
           rotation="0 90 23.807"
           scale="0.312 0.5 0.309"
+          visible="true"
           glide-upwards="enabled: false, speed: 0.01"
           proximity-circle="
             target: #paper-proximity-plane; 
@@ -364,8 +372,8 @@
       </a-entity>
 
       <!--Altar curtains-->
-      <!--
-      <a-entity id="altar-curtains">
+      
+      <a-entity id="altar-curtains" visible="false">
         <a-entity
           id="white-curtain-entity"
           gltf-model="#white-curtain"
@@ -374,6 +382,7 @@
           scale="0.15 0.3 0.2"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
         <a-entity
@@ -384,6 +393,7 @@
           scale="4 8 10"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
         <a-entity
@@ -394,19 +404,21 @@
           scale="4 8 10"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
       </a-entity>
-      -->
+      <!--  -->
 
       <!--Computer-->
-      <a-entity id="computer">
+      <a-entity id="computer" visible="true">
         <a-entity
           id="computer-entitiy"
           gltf-model="#computer"
           position="0 15 -50"
           scale="1 1 1"
           rotation="0 0 0"
+          visible="true"
           look-at-camera="enabled: false"
           animation="property: position; to: 0 15.5 -50; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
           proximity-circle="
@@ -414,8 +426,7 @@
             componentToChange: look-at-camera;
             compAttrToChange: enabled;
             compAttrNewBoolValue: true"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
+          on-event-switch-visibility="event: plug-grabbed; target: #plug-entity"
         >
           <a-plane
             position="0 4.5 2.23"
@@ -436,6 +447,25 @@
             ammo-shape="type: box"
           >
           </a-plane>
+        </a-entity>
+        <a-entity
+          id="computer-physics-entitiy"
+          gltf-model="#computer"
+          position="0 30 -45"
+          rotation="90 0 0"
+          visible="true"
+          ammo-body="type: dynamic; gravity: 0 0 0"
+          ammo-shape="type: box; offset: 0 2.9 0"
+          on-event-activate-gravity="event: plug-grabbed; target: #plug-entity"
+        >
+          <a-plane
+            position="0 4.5 2.23"
+            height="3"
+            width="4.8"
+            color="black"
+            ammo-body="type: static"
+            ammo-shape="type: box"
+          ></a-plane>
         </a-entity>
         <a-circle
           id="computer-proximity-plane"
@@ -458,6 +488,7 @@
           position="-0.7 0 -144.3"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
         <a-entity
@@ -465,20 +496,22 @@
           gltf-model="#socket"
           position="-0.056 0.873 -140.916"
           rotation="0 -90 0"
+          visible="true"
         >
         </a-entity>
         <a-entity
           id="plug-entity"
           gltf-model="#antenna-plug"
-          position="-0.056 1.028 -141.05"
+          position="-0.056 1.3 -0.8"
           rotation="0 180 180"
           scale="0.27 0.27 0.27"
+          visible="true"
           ammo-body="type: dynamic; gravity: 0 0 0"
           ammo-shape="type: hull"
-          grabbable-custom="changeEntityPhysicsToDynamic: true"
+          grabbable-custom="changeEntityPhysicsToDynamic: true; isPlug: true"
         >
         </a-entity
-        ><!---0.056 1.028 -141.05-->
+        ><!-- -0.056 1.028 -141.05-->
 
         <a-entity
           id="diesel-generator-entity"
@@ -486,6 +519,7 @@
           position="-0.441 0 -141.585"
           rotation="0 -90 0"
           scale="2 2 2"
+          visible="true"
         >
         </a-entity>
 
@@ -524,6 +558,7 @@
           rotation="0 90 0"
           ammo-body="type: static"
           ammo-shape="type: mesh"
+          visible="true"
         >
         </a-entity>
         <a-plane
@@ -558,6 +593,7 @@
           scale="0.2 0.2 1"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
         <a-entity
@@ -568,6 +604,7 @@
           scale="0.2 0.2 1"
           ammo-body="type: static"
           ammo-shape="type: hull"
+          visible="true"
         >
         </a-entity>
       </a-entity>
