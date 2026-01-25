@@ -44,6 +44,18 @@ AFRAME.registerComponent('look-at-camera', {
     const cameraWorldPosition = new THREE.Vector3();
     this.camera.getWorldPosition(cameraWorldPosition);
     this.smoothLookAt(cameraWorldPosition, this.data.speed);
+  },
+
+  // Remove fucntion written by copilot
+  remove: function () {
+    // Zur Ausgangsrotation zurückdrehen
+    if (this.initialQuaternion) {
+      this.el.object3D.quaternion.copy(this.initialQuaternion);
+    }
+
+    // Referenzen aufräumen
+    this.camera = null;
+    this.idleEntity = null;
   }
 });
 

@@ -56,9 +56,9 @@
     <script src="/src/components/custom/spawn-text-planes.js"></script>
     <script src="/src/components/custom/hand-grab.js"></script>
     <script src="/src/components/custom/grabbable-custom.js"></script>
-    <script src="/src/components/custom/on-event-activate-gravity.js"></script>
-    <script src="/src/components/custom/on-event-switch-visibility.js"></script>
     <script src="/src/components/custom/on-event-teleport.js"></script>
+    <script src="/src/components/custom/on-event-deactivate-components.js"></script>
+
 
     <!--External scripts-->
     <script src="/src/components/external/aframe-keyboard.min.js"></script>
@@ -426,7 +426,8 @@
             componentToChange: look-at-camera;
             compAttrToChange: enabled;
             compAttrNewBoolValue: true"
-          on-event-switch-visibility="event: plug-grabbed; target: #plug-entity"
+          on-event-deactivate-components="event: plug-grabbed; target: #plug-entity; components: proximity-circle, animation, look-at-camera"
+          on-event-teleport="event: plug-grabbed; target: #plug-entity; position: 0 6.702 -40.813; rotation: 70.961 -176.460 -154.704"
         >
           <a-plane
             position="0 4.5 2.23"
@@ -447,25 +448,6 @@
             ammo-shape="type: box"
           >
           </a-plane>
-        </a-entity>
-        <a-entity
-          id="computer-physics-entitiy"
-          gltf-model="#computer"
-          position="0 30 -45"
-          rotation="90 0 0"
-          visible="true"
-          ammo-body="type: dynamic; gravity: 0 0 0"
-          ammo-shape="type: box; offset: 0 2.9 0"
-          on-event-activate-gravity="event: plug-grabbed; target: #plug-entity"
-        >
-          <a-plane
-            position="0 4.5 2.23"
-            height="3"
-            width="4.8"
-            color="black"
-            ammo-body="type: static"
-            ammo-shape="type: box"
-          ></a-plane>
         </a-entity>
         <a-circle
           id="computer-proximity-plane"
