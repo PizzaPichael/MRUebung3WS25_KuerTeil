@@ -1,9 +1,19 @@
+/*
+This component allows for an entity to change its components attribute values when the camera/player reaches a certain
+designated proximity plane.
+Several components to change can be given to the component via an array.
+The component supports both the list and a single target input as I was to lazy to change the old single target
+variante on some entities.
+The version with several targets was used on the spawn-text-planes component f.e.
+
+Can be assigned to any entity.
+*/
 AFRAME.registerComponent('proximity-circle', {
     schema: {
-        // Array von Objekten im Format {target: selector, component: string, attribute: string, value: boolean}
+        // Array of objects in format: {target: selector, component: string, attribute: string, value: boolean}
         changes: { type: 'array', default: [] },
 
-        // Support for old single-target format
+        // Support for old single target format
         target: { type: 'selector', default: null },
         componentToChange: { type: 'string', default: '' },
         compAttrToChange: { type: 'string', default: '' },
@@ -14,6 +24,7 @@ AFRAME.registerComponent('proximity-circle', {
         this.camera = this.el.sceneEl.camera;
         this.targets = [];
 
+        // Adding targets to check the proximity for in the multiple targets array way
         if (this.data.changes && this.data.changes.length > 0) {
             this.data.changes.forEach((change) => {
                 if (change.target && change.component && change.attribute && change.value !== undefined) {
@@ -40,7 +51,7 @@ AFRAME.registerComponent('proximity-circle', {
             });
         }
 
-        // Support for old single-target format
+        // Support for old single target format
         if (this.data.target && this.data.componentToChange && this.data.compAttrToChange) {
             const targetWorldPos = new THREE.Vector3();
             this.data.target.object3D.getWorldPosition(targetWorldPos);
@@ -68,6 +79,7 @@ AFRAME.registerComponent('proximity-circle', {
         return distanceToTarget <= target.radius;
     },
 
+    // Checks the distance to each target with each tick
     tick: function () {
         this.targets.forEach((target) => {
             const isInside = this.checkIfCameraInTarget(target);

@@ -1,3 +1,13 @@
+/* 
+This component spawns Text-Plane entities with the desired spiral movement.
+The planes look at the socket-entity in the scene while the player has not reached
+the proximityPlaneStopIdleFocus proximity plane yet.
+When reached, the palnes look at the player.
+When reaching the proximityPlaneStopSpiral plane the planes stop spiraling and just look at the player
+from the position they were last in.
+
+Is used on an empty entity inside the scene.
+*/
 AFRAME.registerComponent('spawn-text-planes', {
     schema: {
         texts: { type: 'array', default: [] },
@@ -26,6 +36,7 @@ AFRAME.registerComponent('spawn-text-planes', {
                 spiralPitch: this.randomValue(0.2, 2),
                 speed: this.randomValue(0.5, 2)
             });
+            // Every second plane spinns in counterclockwise direction
             let rest = index % 2;
             if (rest === 1) {
                 plane.setAttribute('spiral-movement', { spinClockwise: false });
@@ -33,7 +44,6 @@ AFRAME.registerComponent('spawn-text-planes', {
             plane.setAttribute('proximity-circle', {
                 changes: [
                     {
-
                         target: this.data.proximityPlaneStopIdleFocus,
                         component: 'look-at-camera',
                         attribute: 'enabled',
@@ -66,8 +76,12 @@ AFRAME.registerComponent('spawn-text-planes', {
         });
     },
 
+    /*
+    Calculates a grid position for each text plane based on its index so that they dont spawn at the same place.
+    Uses a 3-column layout and offsets the grid.
+    Z is fixed so all planes spawn on the same depth and has been found by testing.
+    */
     calculatePosition: function (index) {
-        // Berechne Position basierend auf Index (z.B. in einem Grid)
         const row = Math.floor(index / 3);
         const col = index % 3;
         return `${col * 3 - 3} ${row * 3 + 2} -136`;

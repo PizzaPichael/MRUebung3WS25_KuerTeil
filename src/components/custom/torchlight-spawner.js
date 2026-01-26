@@ -1,3 +1,4 @@
+// This component adds lights to the throneroom above the torch models.
 AFRAME.registerComponent('torchlight-spawner', {
     schema: {
         torchHeight: { type: 'number', default: 5.41 },
@@ -12,6 +13,7 @@ AFRAME.registerComponent('torchlight-spawner', {
     },
 
     init: function () {
+        // Positions derive from the blender model
         const torchPositions = [
             { x: -8, z: -10 },
             { x: -8, z: 10 },
