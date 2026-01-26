@@ -9,23 +9,7 @@ AFRAME.registerComponent('spiral-movement', {
         speed: { type: 'number', default: 1 },
         enabled: { type: 'boolean', default: true },
     },
-    /*
-    Sei g eine Gerade (AB).
-    A ist dabei gleich dem Mittelpunkt M=(0,0) eines Einheitskreises mit
-    Radius r=1.
-    B ist ein beliebiger Punkt auf dem Kreis.
-    Dann ist phi der Winkel in dem g von der positiven x-Achse aus
-    gemessen im Gegenuhrzeigersinn absteht.
-    Sin(phi) ist dann der Abstand von B zur x-Achse, also folglich seine
-    y-Koordinate.
-    Cos(phi) ergibt den Abstand von b zur y-Achse, also die x-Koordinate.
-  
-    Helix:
-    x(t) =r⋅cos(t)
-    y(t) =r⋅sin(t)
-    z(t) =h⋅t
-    
-    */
+
     init: function () {
         if (
             this.data.originPosition.x === 0 &&
@@ -99,7 +83,5 @@ AFRAME.registerComponent('spiral-movement', {
         }
 
         this.el.object3D.position.set(x, y, z);
-
-        //console.log('Position:', x, y, z, 'elapsed:', this.elapsed);
     },
 });

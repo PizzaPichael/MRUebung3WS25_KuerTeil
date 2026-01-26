@@ -82,16 +82,8 @@ AFRAME.registerComponent('proximity-circle', {
         });
     },
 
-      // Remove fucntion written by copilot
     remove: function () {
-        // Änderungen am Entity rückgängig machen
-        this.targets.forEach((target) => {
-          // Attribut wieder auf den Gegenwert setzen, wie im „außerhalb“-Fall
-          this.el.setAttribute(target.component, target.attribute, !target.value);
-        });
-    
-        // Referenzen aufräumen
         this.targets = [];
         this.camera = null;
-      }
+    }
 });

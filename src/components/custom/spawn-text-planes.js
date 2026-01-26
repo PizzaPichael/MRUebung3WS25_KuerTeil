@@ -48,6 +48,11 @@ AFRAME.registerComponent('spawn-text-planes', {
                 ]
 
             });
+            plane.setAttribute('on-event-deactivate-components',{
+                event: 'plug-grabbed',
+                target: '#plug-entity', 
+                components: 'spiral-movement, proximity-circle'
+            });         
 
             const textEl = document.createElement('a-text');
             textEl.setAttribute('value', text);

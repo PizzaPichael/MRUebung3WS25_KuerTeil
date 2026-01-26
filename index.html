@@ -58,6 +58,7 @@
     <script src="/src/components/custom/grabbable-custom.js"></script>
     <script src="/src/components/custom/on-event-teleport.js"></script>
     <script src="/src/components/custom/on-event-deactivate-components.js"></script>
+    <script src="/src/components/custom/torchlight-spawner.js"></script>
 
 
     <!--External scripts-->
@@ -103,7 +104,7 @@
     <a-scene
       light="defaultLightsEnabled: true"
       stats
-      physics=" driver: ammo; debug: true; debugDrawMode: 1;"
+      physics=" driver: ammo; debug: false; debugDrawMode: 1;"
     >
       <!--Asset registration-->
       <a-assets id="asset-registration">
@@ -260,8 +261,9 @@
         gltf-model="#throneroom"
         position="0 0 0"
         scale="4 4 4"
-        shadow="receive: false"
+        shadow="receive: true"
         visible="true"
+        torchlight-spawner
       ></a-entity>
 
       <!--Throneroom collision (vereinfachte Box für Boden)-->
@@ -306,7 +308,7 @@
       <!-- -->
 
       <!--Interaktionsterminal-->
-      <a-entity id="terminal" visible="false">
+      <a-entity id="terminal" visible="true">
         <a-entity
           id="lowpoly-altar-entitiy"
           gltf-model="#lowpoly-altar"
@@ -357,6 +359,16 @@
             ammo-shape="type: box"
           >
           </a-plane>
+          <a-entity
+          id="termnial-light"
+          position="0 1 0"
+          light="
+            type: point;
+            color: #ffb357;
+            distance: 2;
+            decay: 1"
+          >
+          </a-entity>
         </a-entity>
         <a-circle
           id="paper-proximity-plane"
@@ -372,8 +384,7 @@
       </a-entity>
 
       <!--Altar curtains-->
-      
-      <a-entity id="altar-curtains" visible="false">
+      <a-entity id="altar-curtains" visible="true">
         <a-entity
           id="white-curtain-entity"
           gltf-model="#white-curtain"
@@ -439,7 +450,7 @@
           ></a-plane>
           <a-plane
             src="#chatgptscreenshot"
-            position="0 4.5 2.27"
+            position="0 4.5 2.29"
             height="2.5"
             width="2.5"
             material="transparent: true; alphaTest: 0.5"
@@ -448,6 +459,17 @@
             ammo-shape="type: box"
           >
           </a-plane>
+          <a-entity
+          id="computer-light"
+          position="0 4.726 2.727"
+          light="
+            type: point;
+            color: #ffffff;
+            distance: 2;
+            decay: 1;
+            intensity: 3"
+          >
+          </a-entity>
         </a-entity>
         <a-circle
           id="computer-proximity-plane"
@@ -464,6 +486,21 @@
 
       <!--Blackbox room-->
       <a-entity id="blackbox">
+        <a-entity
+          id="blackbox-light"
+          position="0 11.992 -121"
+          rotation="-30 0 0"
+          light="
+            type: spot;
+            color: #ffffff;
+            distance: 50;
+            angle: 20;
+            decay: 1;
+            intensity: 10;
+            castShadow: true;
+            target: generator-entity"
+        >
+        </a-entity>
         <a-entity
           id="generator-entity"
           gltf-model="#generator"
@@ -484,7 +521,7 @@
         <a-entity
           id="plug-entity"
           gltf-model="#antenna-plug"
-          position="-0.056 1.3 -0.8"
+          position="-0.056 1.028 -141.05"
           rotation="0 180 180"
           scale="0.27 0.27 0.27"
           visible="true"
@@ -493,8 +530,7 @@
           grabbable-custom="changeEntityPhysicsToDynamic: true; isPlug: true"
         >
         </a-entity
-        ><!-- -0.056 1.028 -141.05-->
-
+        ><!-- original-pos: -0.056 1.028 -141.05; home: -0.056 1.3 -0.8-->
         <a-entity
           id="diesel-generator-entity"
           gltf-model="#diesel-generator"
@@ -504,7 +540,6 @@
           visible="true"
         >
         </a-entity>
-
         <a-box
           id="dynamic-test"
           position="-0 3 -121.585"
@@ -556,17 +591,17 @@
         ></a-plane>
 
         <!--Info screens-->
-        <!--
+        <!---->
         <a-entity
           spawn-text-planes="texts: Missing transparency, Racial Profiling, Water scarcity, Discrimination, Distortion, Dominance of large tech companies, Desinformation, Rising temperatures, Light polution, Lazyness, Unfair;
           proximityPlaneStopIdleFocus: #room-proximity-plane; 
           proximityPlaneStopSpiral: #generator-proximity-plane"
         ></a-entity
-        >-->
+        >
       </a-entity>
 
       <!--Curtains area-->
-      <a-entity id="curtains">
+      <a-entity id="curtains" visible="true">
         <a-entity
           id="curtain-rod-entity"
           gltf-model="#curtain-rod"
