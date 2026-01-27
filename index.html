@@ -266,7 +266,7 @@
         torchlight-spawner
       ></a-entity>
 
-      <!--Throneroom collision (vereinfachte Box für Boden)-->
+      <!--Throneroom collision box-->
       <a-box
         id="throneroom-floor-collision"
         position="0 0.01 -25"
@@ -279,209 +279,210 @@
       ></a-box>
 
       <!--Throneroom interior-->
-      <!--Altar Area-->
-      
-      <a-entity id="altar">
-        <a-entity
-          id="stairsentitiy"
-          gltf-model="#stairs"
-          position="0 -1.2 -40"
-          scale="0.6 0.6 0.6"
-          rotation="0 90 0"
-          ammo-body="type: static"
-          ammo-shape="type: hull; offset: 6 4.7 0"
-          visible="true"
-        >
-        </a-entity>
-        <a-entity
-          id="altar-entitiy"
-          gltf-model="#altar"
-          position="0 6 -50"
-          visible="true"
-          scale="0.03 0.03 0.03"
-          rotation="0 0 0"
-          ammo-body="type: static"
-          ammo-shape="type: box; offset: 0 3.8 0"
-        >
-        </a-entity>
-      </a-entity>
-      <!-- -->
-
-      <!--Interaktionsterminal-->
-      <a-entity id="terminal" visible="true">
-        <a-entity
-          id="lowpoly-altar-entitiy"
-          gltf-model="#lowpoly-altar"
-          position="0 0 -30"
-          scale="1 1 1"
-          rotation="0 0 0"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-          visible="true"
-        >
-        </a-entity>
-        <a-entity
-          id="old-paper-entitiy"
-          gltf-model="#old-paper"
-          position="0 1.347 -30"
-          rotation="0 90 23.807"
-          scale="0.312 0.5 0.309"
-          visible="true"
-          glide-upwards="enabled: false, speed: 0.01"
-          proximity-circle="
-            target: #paper-proximity-plane; 
-            componentToChange: glide-upwards;
-            compAttrToChange: enabled;
-            compAttrNewBoolValue: true"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-        >
-          <a-text
-            value="Wie kann ich dir heute helfen, die Welt zu verbessern?"
-            position="0.08 0.11 -0.97"
-            rotation="-90 -90 0"
-            width="2"
-            wrap-count="46"
-            color="black"
-            ammo-body="type: static"
-            ammo-shape="type: box"
-          >
-          </a-text>
-          <a-plane
-            src="#chatgptuielements"
-            position="0 0.1 0"
-            rotation="-90 -90 0"
-            height="0.63"
-            width="2.92"
-            material="transparent: true; alphaTest: 0.5"
-            blink-cursor="non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor"
-            ammo-body="type: static"
-            ammo-shape="type: box"
-          >
-          </a-plane>
+      <a-entity>
+        <!--Altar Area-->
+        <a-entity id="altar">
           <a-entity
-          id="termnial-light"
-          position="0 1 0"
-          light="
-            type: point;
-            color: #ffb357;
-            distance: 2;
-            decay: 1"
+            id="stairsentitiy"
+            gltf-model="#stairs"
+            position="0 -1.2 -40"
+            scale="0.6 0.6 0.6"
+            rotation="0 90 0"
+            ammo-body="type: static"
+            ammo-shape="type: hull; offset: 6 4.7 0"
+            visible="true"
+          >
+          </a-entity>
+          <a-entity
+            id="altar-entitiy"
+            gltf-model="#altar"
+            position="0 6 -50"
+            visible="true"
+            scale="0.03 0.03 0.03"
+            rotation="0 0 0"
+            ammo-body="type: static"
+            ammo-shape="type: box; offset: 0 3.8 0"
           >
           </a-entity>
         </a-entity>
-        <a-circle
-          id="paper-proximity-plane"
-          position="0 0.03 -30"
-          rotation="-90 0 0"
-          radius="5"
-          color="black"
-          transparent="true"
-          opacity="0"
-          ammo-body="type: static"
-          ammo-shape="type: box"
-        ></a-circle>
-      </a-entity>
+        <!-- -->
 
-      <!--Altar curtains-->
-      <a-entity id="altar-curtains" visible="true">
-        <a-entity
-          id="white-curtain-entity"
-          gltf-model="#white-curtain"
-          position="1 0 -59"
-          rotation="0 0 0"
-          scale="0.15 0.3 0.2"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-          visible="true"
-        >
-        </a-entity>
-        <a-entity
-          id="victorian-curtain-entity"
-          gltf-model="#victorian-curtain"
-          position="9 16 -57"
-          rotation="0 0 0"
-          scale="4 8 10"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-          visible="true"
-        >
-        </a-entity>
-        <a-entity
-          id="victorian-curtain-entity-two"
-          gltf-model="#victorian-curtain"
-          position="-9 16 -57"
-          rotation="0 -180 0"
-          scale="4 8 10"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-          visible="true"
-        >
-        </a-entity>
-      </a-entity>
-      <!--  -->
-
-      <!--Computer-->
-      <a-entity id="computer" visible="true">
-        <a-entity
-          id="computer-entitiy"
-          gltf-model="#computer"
-          position="0 15 -50"
-          scale="1 1 1"
-          rotation="0 0 0"
-          visible="true"
-          look-at-camera="enabled: false"
-          animation="property: position; to: 0 15.5 -50; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
-          proximity-circle="
-            target: #computer-proximity-plane; 
-            componentToChange: look-at-camera;
-            compAttrToChange: enabled;
-            compAttrNewBoolValue: true"
-          on-event-deactivate-components="event: plug-grabbed; target: #plug-entity; components: proximity-circle, animation, look-at-camera"
-          on-event-teleport="event: plug-grabbed; target: #plug-entity; position: 0 6.702 -40.813; rotation: 70.961 -176.460 -154.704"
-        >
-          <a-plane
-            position="0 4.5 2.23"
-            height="3"
-            width="4.8"
-            color="black"
-            ammo-body="type: static"
-            ammo-shape="type: box"
-          ></a-plane>
-          <a-plane
-            src="#chatgptscreenshot"
-            position="0 4.5 2.29"
-            height="2.5"
-            width="2.5"
-            material="transparent: true; alphaTest: 0.5"
-            animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
-            ammo-body="type: static"
-            ammo-shape="type: box"
-          >
-          </a-plane>
+        <!--Interaktionsterminal-->
+        <a-entity id="terminal" visible="true">
           <a-entity
-          id="computer-light"
-          position="0 4.726 2.727"
-          light="
-            type: point;
-            color: #ffffff;
-            distance: 2;
-            decay: 1;
-            intensity: 3"
+            id="lowpoly-altar-entitiy"
+            gltf-model="#lowpoly-altar"
+            position="0 0 -30"
+            scale="1 1 1"
+            rotation="0 0 0"
+            ammo-body="type: static"
+            ammo-shape="type: hull"
+            visible="true"
+          >
+          </a-entity>
+          <a-entity
+            id="old-paper-entitiy"
+            gltf-model="#old-paper"
+            position="0 1.347 -30"
+            rotation="0 90 23.807"
+            scale="0.312 0.5 0.309"
+            visible="true"
+            glide-upwards="enabled: false, speed: 0.01"
+            proximity-circle="
+              target: #paper-proximity-plane; 
+              componentToChange: glide-upwards;
+              compAttrToChange: enabled;
+              compAttrNewBoolValue: true"
+            ammo-body="type: static"
+            ammo-shape="type: hull"
+          >
+            <a-text
+              value="Wie kann ich dir heute helfen, die Welt zu verbessern?"
+              position="0.08 0.11 -0.97"
+              rotation="-90 -90 0"
+              width="2"
+              wrap-count="46"
+              color="black"
+              ammo-body="type: static"
+              ammo-shape="type: box"
+            >
+            </a-text>
+            <a-plane
+              src="#chatgptuielements"
+              position="0 0.1 0"
+              rotation="-90 -90 0"
+              height="0.63"
+              width="2.92"
+              material="transparent: true; alphaTest: 0.5"
+              blink-cursor="non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor"
+              ammo-body="type: static"
+              ammo-shape="type: box"
+            >
+            </a-plane>
+            <a-entity
+            id="termnial-light"
+            position="0 1 0"
+            light="
+              type: point;
+              color: #ffb357;
+              distance: 2;
+              decay: 1"
+            >
+            </a-entity>
+          </a-entity>
+          <a-circle
+            id="paper-proximity-plane"
+            position="0 0.03 -30"
+            rotation="-90 0 0"
+            radius="5"
+            color="black"
+            transparent="true"
+            opacity="0"
+            ammo-body="type: static"
+            ammo-shape="type: box"
+          ></a-circle>
+        </a-entity>
+
+        <!--Altar curtains-->
+        <a-entity id="altar-curtains" visible="true">
+          <a-entity
+            id="white-curtain-entity"
+            gltf-model="#white-curtain"
+            position="1 0 -59"
+            rotation="0 0 0"
+            scale="0.15 0.3 0.2"
+            ammo-body="type: static"
+            ammo-shape="type: hull"
+            visible="true"
+          >
+          </a-entity>
+          <a-entity
+            id="victorian-curtain-entity"
+            gltf-model="#victorian-curtain"
+            position="9 16 -57"
+            rotation="0 0 0"
+            scale="4 8 10"
+            ammo-body="type: static"
+            ammo-shape="type: hull"
+            visible="true"
+          >
+          </a-entity>
+          <a-entity
+            id="victorian-curtain-entity-two"
+            gltf-model="#victorian-curtain"
+            position="-9 16 -57"
+            rotation="0 -180 0"
+            scale="4 8 10"
+            ammo-body="type: static"
+            ammo-shape="type: hull"
+            visible="true"
           >
           </a-entity>
         </a-entity>
-        <a-circle
-          id="computer-proximity-plane"
-          position="0 0.03 -25"
-          rotation="-90 0 0"
-          radius="40"
-          color="black"
-          transparent="true"
-          opacity="0"
-          ammo-body="type: static"
-          ammo-shape="type: box"
-        ></a-circle>
+        <!--  -->
+
+        <!--Computer-->
+        <a-entity id="computer" visible="true">
+          <a-entity
+            id="computer-entitiy"
+            gltf-model="#computer"
+            position="0 15 -50"
+            scale="1 1 1"
+            rotation="0 0 0"
+            visible="true"
+            look-at-camera="enabled: false"
+            animation="property: position; to: 0 15.5 -50; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
+            proximity-circle="
+              target: #computer-proximity-plane; 
+              componentToChange: look-at-camera;
+              compAttrToChange: enabled;
+              compAttrNewBoolValue: true"
+            on-event-deactivate-components="event: plug-grabbed; target: #plug-entity; components: proximity-circle, animation, look-at-camera"
+            on-event-teleport="event: plug-grabbed; target: #plug-entity; position: 0 6.702 -40.813; rotation: 70.961 -176.460 -154.704"
+          >
+            <a-plane
+              position="0 4.5 2.23"
+              height="3"
+              width="4.8"
+              color="black"
+              ammo-body="type: static"
+              ammo-shape="type: box"
+            ></a-plane>
+            <a-plane
+              src="#chatgptscreenshot"
+              position="0 4.5 2.29"
+              height="2.5"
+              width="2.5"
+              material="transparent: true; alphaTest: 0.5"
+              animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
+              ammo-body="type: static"
+              ammo-shape="type: box"
+            >
+            </a-plane>
+            <a-entity
+            id="computer-light"
+            position="0 4.726 2.727"
+            light="
+              type: point;
+              color: #ffffff;
+              distance: 2;
+              decay: 1;
+              intensity: 3"
+            >
+            </a-entity>
+          </a-entity>
+          <a-circle
+            id="computer-proximity-plane"
+            position="0 0.03 -25"
+            rotation="-90 0 0"
+            radius="40"
+            color="black"
+            transparent="true"
+            opacity="0"
+            ammo-body="type: static"
+            ammo-shape="type: box"
+          ></a-circle>
+        </a-entity>
       </a-entity>
 
       <!--Blackbox room-->
@@ -599,32 +600,6 @@
           proximityPlaneStopSpiral: #generator-proximity-plane"
         ></a-entity
         >
-      </a-entity>
-
-      <!--Curtains area-->
-      <a-entity id="curtains" visible="true">
-        <a-entity
-          id="curtain-rod-entity"
-          gltf-model="#curtain-rod"
-          position="-26.171 34 -51.699"
-          rotation="0 -49.65 0"
-          scale="0.2 0.2 1"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-          visible="true"
-        >
-        </a-entity>
-        <a-entity
-          id="curtain-rod-entity-two"
-          gltf-model="#curtain-rod"
-          position="26.171 34 -51.699"
-          rotation="0 49.65 0"
-          scale="0.2 0.2 1"
-          ammo-body="type: static"
-          ammo-shape="type: hull"
-          visible="true"
-        >
-        </a-entity>
       </a-entity>
     </a-scene>
   </body>
