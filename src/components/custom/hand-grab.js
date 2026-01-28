@@ -18,7 +18,7 @@ AFRAME.registerComponent('hand-grab', {
         // Create a collision sphere around the hand
         this.collisionSphere = document.createElement('a-sphere');
         this.collisionSphere.setAttribute('radius', 0.03);
-        this.collisionSphere.setAttribute('opacity', 1); // Make it invisible
+        this.collisionSphere.setAttribute('opacity', 0); 
         this.collisionSphere.setAttribute('position', '0 0 0');
         this.el.appendChild(this.collisionSphere);
     },
