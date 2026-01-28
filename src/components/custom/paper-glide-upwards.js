@@ -1,7 +1,8 @@
 AFRAME.registerComponent('glide-upwards', {
     schema: {
         enabled: { type: 'boolean', default: true },
-        speed: { type: 'number', default: 0.05 }
+        speed: { type: 'number', default: 0.05 },
+        heightOffset: { type: 'number', default: 0.0 }
     },
 
     init: function() {
@@ -32,7 +33,12 @@ AFRAME.registerComponent('glide-upwards', {
             const cameraWorldPosition = new THREE.Vector3();
             this.camera.getWorldPosition(cameraWorldPosition);
             
-            const newPosition = new THREE.Vector3(this.initialPosition.x, cameraWorldPosition.y, this.initialPosition.z);
+            let newPosition = null;
+            if(this.data.heightOffset === 0.0) { 
+                newPosition = new THREE.Vector3(this.initialPosition.x, cameraWorldPosition.y, this.initialPosition.z);
+            } else {
+                newPosition = new THREE.Vector3(this.initialPosition.x, cameraWorldPosition.y + this.data.heightOffset, this.initialPosition.z);
+            }
             
             this.el.object3D.position.lerp(newPosition, this.data.speed);
             this.el.object3D.quaternion.slerp(this.targetQuaternion, this.data.speed);
