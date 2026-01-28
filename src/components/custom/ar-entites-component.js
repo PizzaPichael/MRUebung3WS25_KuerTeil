@@ -6,8 +6,9 @@ AFRAME.registerComponent('ar-entites-component', {
 
     init: function () {
         
-        this.onEnterXR = this.onEnterXR.bind(this);
-        this.el.sceneEl.addEventListener('enter-vr', this.onEnterXR);
+        //this.onEnterXR = this.onEnterXR.bind(this);
+        //this.el.sceneEl.addEventListener('enter-vr', this.onEnterXR);
+        this.onEnterXR();
     },
 
     onEnterXR: function () {
@@ -107,7 +108,7 @@ AFRAME.registerComponent('ar-entites-component', {
         plug.setAttribute('rotation', '0 180 180');
         plug.setAttribute('scale', '0.27 0.27 0.27');
         plug.setAttribute('visible', 'true');
-        plug.setAttribute('ammo-body', 'type: static; gravity: 0 0 0');
+        plug.setAttribute('ammo-body', 'type: dynamic; gravity: 0 0 0');
         plug.setAttribute('ammo-shape', {
             type: 'hull'
             });
