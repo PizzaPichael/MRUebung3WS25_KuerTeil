@@ -61,7 +61,6 @@
       <script src="/src/components/custom/on-event-teleport.js"></script>
       <script src="/src/components/custom/on-event-deactivate-components.js"></script>
       <script src="/src/components/custom/torchlight-spawner.js"></script>
-      <script src="/src/components/custom/ar-entites-component.js"></script>
        <!--External scripts-->
       <script src="/src/components/external/aframe-keyboard.min.js"></script>
     </div>
@@ -607,10 +606,102 @@
         </a-entity>
       </a-entity>
 
-      <a-entity id="ar-entities"
-        ar-entites-component
-        hide-on-enter-vr>
-        
+      <!--AR Entities - Diese Objekte werden nur in AR angezeigt-->
+      <a-entity id="ar-entities" hide-on-enter-vr>
+        <!--AR Ambient Light-->
+        <a-entity
+          id="ar-ambient-light"
+          light="type: ambient; color: #ffffff; intensity: 0.5"
+          hide-on-enter-vr
+        ></a-entity>
+
+        <!--AR Ground Plane for Physics-->
+        <a-plane
+          id="ar-ground-plane"
+          position="0 0 0"
+          rotation="-90 0 0"
+          width="20"
+          height="20"
+          visible="false"
+          ammo-body="type: static"
+          ammo-shape="type: box"
+          hide-on-enter-vr
+        ></a-plane>
+
+        <!--AR Computer-->
+        <a-entity
+          id="ar-computer-entity"
+          gltf-model="#computer"
+          position="0 3 -20"
+          scale="1 1 1"
+          rotation="0 0 0"
+          visible="true"
+          hide-on-enter-vr
+          look-at-camera="enabled: true; manualCamera: #head"
+          animation="property: position; to: 0 3.5 -20; loop: true; dir: alternate; dur: 2000; easing: easeInOutQuad"
+        >
+          <a-plane
+            position="0 4.5 2.23"
+            height="3"
+            width="4.8"
+            color="black"
+            ammo-body="type: static"
+            ammo-shape="type: box"
+          ></a-plane>
+          <a-plane
+            src="#chatgptscreenshot"
+            position="0 4.5 2.29"
+            height="2.5"
+            width="2.5"
+            material="transparent: true; alphaTest: 0.5"
+            animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: easeInOutCubic"
+            ammo-body="type: static"
+            ammo-shape="type: box"
+          ></a-plane>
+          <a-entity
+            id="ar-computer-light"
+            position="0 4.726 2.727"
+            light="type: point; color: #ffffff; distance: 2; decay: 1; intensity: 3"
+          ></a-entity>
+        </a-entity>
+
+        <!--AR Generator Area-->
+        <a-entity
+          id="ar-emptyGenerator-entity"
+          position="0 0 2"
+          rotation="0 180 0"
+          hide-on-enter-vr
+        >
+          <a-entity
+            id="ar-diesel-generator-entity"
+            gltf-model="#diesel-generator"
+            position="-0.441 0 -0.585"
+            rotation="0 -90 0"
+            scale="2 2 2"
+            visible="true"
+          ></a-entity>
+          <a-entity
+            id="ar-socket-entity"
+            gltf-model="#socket"
+            position="-0.056 0.873 0.047"
+            rotation="0 -90 0"
+            visible="true"
+          ></a-entity>
+        </a-entity>
+
+        <!--AR Plug - direktes Kind der Scene für korrekte Physics-Synchronisation-->
+        <a-entity
+          id="ar-plug-entity"
+          gltf-model="#antenna-plug"
+          position="0.056 1.028 2.05"
+          rotation="0 0 180"
+          scale="0.27 0.27 0.27"
+          visible="true"
+          ammo-body="type: dynamic; gravity: 0 0 0"
+          ammo-shape="type: hull"
+          grabbable-custom="changeEntityPhysicsToDynamic: true; isPlug: true"
+          hide-on-enter-vr
+        ></a-entity>
       </a-entity>
     </a-scene>
   </body>
