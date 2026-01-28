@@ -12,7 +12,9 @@ AFRAME.registerComponent('spawn-text-planes', {
     schema: {
         texts: { type: 'array', default: [] },
         proximityPlaneStopIdleFocus: { type: 'string', default: '' },
-        proximityPlaneStopSpiral: { type: 'string', default: '' }
+        proximityPlaneStopSpiral: { type: 'string', default: '' },
+        noIdle: { type: 'boolean', default: false },
+        overWriteStartPos: { type: 'string', default: '' }
     },
 
     init: function () {
@@ -26,38 +28,56 @@ AFRAME.registerComponent('spawn-text-planes', {
             plane.setAttribute('color', 'pink');
             plane.setAttribute('position', this.calculatePosition(index));
             plane.setAttribute('look-at-camera', {
-                enabled: false,
-                idleEntityId: '#socket-entity'
+                enabled: true
             });
-            plane.setAttribute('spiral-movement', {
-                originPosition: '-0.056 0.873 -140.916',
-                spiralRadius: this.randomValue(2.9, 6.8),
-                spiralHeight: this.randomValue(4.2, 14.4),
-                spiralPitch: this.randomValue(0.2, 2),
-                speed: this.randomValue(0.5, 2)
-            });
+            if(this.data.overWriteStartPos === '') {
+                plane.setAttribute('spiral-movement', {
+                    originPosition: '-0.056 0.873 -140.916',
+                    spiralRadius: this.randomValue(2.9, 6.8),
+                    spiralHeight: this.randomValue(4.2, 14.4),
+                    spiralPitch: this.randomValue(0.2, 2),
+                    speed: this.randomValue(0.5, 2)
+                });
+            } else {
+                plane.setAttribute('spiral-movement', {
+                    originPosition: this.data.overWriteStartPos,
+                    spiralRadius: this.randomValue(2.9, 6.8),
+                    spiralHeight: this.randomValue(4.2, 14.4),
+                    spiralPitch: this.randomValue(0.2, 2),
+                    speed: this.randomValue(0.5, 2)
+                });
+            }
+            
             // Every second plane spinns in counterclockwise direction
             let rest = index % 2;
             if (rest === 1) {
                 plane.setAttribute('spiral-movement', { spinClockwise: false });
             }
-            plane.setAttribute('proximity-circle', {
-                changes: [
-                    {
-                        target: this.data.proximityPlaneStopIdleFocus,
-                        component: 'look-at-camera',
-                        attribute: 'enabled',
-                        value: true
-                    },
-                    {
-                        target: this.data.proximityPlaneStopSpiral,
-                        component: 'spiral-movement',
-                        attribute: 'enabled',
-                        value: false
-                    }
-                ]
 
-            });
+            if(!this.data.noIdle && this.data.proximityPlaneStopIdleFocus != '' && this.data.proximityPlaneStopSpiral != '') {
+                plane.setAttribute('look-at-camera', {
+                    enabled: false,
+                    idleEntityId: '#socket-entity'
+                });
+                plane.setAttribute('proximity-circle', {
+                    changes: [
+                        {
+                            target: this.data.proximityPlaneStopIdleFocus,
+                            component: 'look-at-camera',
+                            attribute: 'enabled',
+                            value: true
+                        },
+                        {
+                            target: this.data.proximityPlaneStopSpiral,
+                            component: 'spiral-movement',
+                            attribute: 'enabled',
+                            value: false
+                        }
+                    ]
+    
+                });
+            } 
+            
             plane.setAttribute('on-event-deactivate-components',{
                 event: 'plug-grabbed',
                 target: '#plug-entity', 
@@ -84,7 +104,13 @@ AFRAME.registerComponent('spawn-text-planes', {
     calculatePosition: function (index) {
         const row = Math.floor(index / 3);
         const col = index % 3;
-        return `${col * 3 - 3} ${row * 3 + 2} -136`;
+        if(this.data.overWriteStartPos === '') {
+            return `${col * 3 - 3} ${row * 3 + 2} -136`;
+        } else {
+            const parts = this.data.overWriteStartPos.split(' ');
+            const zValue = parts.length >= 3 ? parts[2] : '-136';
+            return `${col * 3 - 3} ${row * 3 + 2} ${zValue}`;
+        }
     },
 
     randomValue: function (min, max) {
