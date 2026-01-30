@@ -1,12 +1,16 @@
-// Chat interaction component for AR terminal
-// Allows user to select from predefined prompts and displays AI responses
-
+/*
+* Chat interaction component for AR terminal.
+* It allows the user to select from predefined prompts and displays AI responses.
+*/
 AFRAME.registerComponent('chat-interaction', {
     schema: {
         textEntity: { type: 'selector' },
         uiPlane: { type: 'selector' }
     },
 
+    /*
+    * Initializes state and input handling for the chat interaction.
+    */
     init: function () {
         this.state = 'initial';
         this.selectedOption = null;
@@ -36,14 +40,16 @@ AFRAME.registerComponent('chat-interaction', {
         this.el.classList.add('clickable');
     },
 
+    /*
+    * Creates the selection Entity thtat shows two options to select from to interact with ChatGPT.
+    */
     createSelectionUI: function () {
-        // Container for selection buttons
         this.selectionEntity = document.createElement('a-entity');
         this.selectionEntity.setAttribute('id', 'chat-selection-container');
         this.selectionEntity.setAttribute('position', '0 0.15 0.01');
         this.selectionEntity.setAttribute('visible', false);
 
-        // Option 1 button - Nachteile
+        // Option 1
         const option1 = document.createElement('a-plane');
         option1.setAttribute('id', 'chat-option-1');
         option1.setAttribute('position', '0 0.15 0');
@@ -61,7 +67,7 @@ AFRAME.registerComponent('chat-interaction', {
         option1Text.setAttribute('color', 'white');
         option1.appendChild(option1Text);
 
-        // Option 2 button - Bachelorarbeit
+        // Option 2
         const option2 = document.createElement('a-plane');
         option2.setAttribute('id', 'chat-option-2');
         option2.setAttribute('position', '0 -0.15 0');
@@ -84,12 +90,19 @@ AFRAME.registerComponent('chat-interaction', {
         this.el.appendChild(this.selectionEntity);
     },
 
+    /*
+    * Handles the user using the raycaster to click on the ChatGPT UI.
+    */
     onClick: function () {
         if (this.state === 'initial') {
             this.showSelection();
         }
     },
 
+    /*
+    * Sets state to selecting. Makes the selection entity visible.
+    * Hides the blink cursor effect if present.
+    */
     showSelection: function () {
         this.state = 'selecting';
         this.selectionEntity.setAttribute('visible', true);
@@ -100,36 +113,42 @@ AFRAME.registerComponent('chat-interaction', {
         }
     },
 
+    /*
+    * Handles setting state to response, hides the selection of the two options as well as the
+    * ChatGpt UI ans creates the response entity under the paper entity.
+    */  
     selectOption: function (index) {
         if (this.state !== 'selecting') return;
         
         this.state = 'response';
         this.selectedOption = this.options[index];
         
-        // Hide selection UI
         this.selectionEntity.setAttribute('visible', false);
         
-        // Get the ar-old-paper-entity
         const parentEntity = this.el.parentNode;
         
-        // Remove text and chatgptui entities
         if (this.data.textEntity) {
             this.data.textEntity.setAttribute('visible', false);
         }
         this.el.setAttribute('visible', false);
         
-        // Create response display
         this.createResponseDisplay(parentEntity);
     },
 
+    /*
+    *  Creates an empty entity for the responses to be located in.
+    *  Creates a planes thath contain the users initial prompt, which i detemined by the option the user selected
+    *  as well as the predefienc answers ChatGPT gives.
+    *  Adds a backbutton button fucntionality zu go back to the initial ChatGPT UI.
+    */
     createResponseDisplay: function (parentEntity) {
-        // Create container for the chat response
+        // Response entity
         const responseEntity = document.createElement('a-entity');
         responseEntity.setAttribute('id', 'chat-response-entity');
         responseEntity.setAttribute('position', '0 0.12 0');
         responseEntity.setAttribute('rotation', '-90 -90 0');
 
-        // User prompt entity that holds The header and text
+        // User prompt entity
         const userPromptBackgroundEntity = document.createElement('a-plane');
         userPromptBackgroundEntity.setAttribute('position', '0.3 0.7 -0.8');
         userPromptBackgroundEntity.setAttribute('width', '1.8');
@@ -154,7 +173,7 @@ AFRAME.registerComponent('chat-interaction', {
         userPromptText.setAttribute('color', 'white');
         userPromptBackgroundEntity.appendChild(userPromptText);
 
-        // AI response entity that holds The header and text
+        // AI response entity
         const responseBackgroundEntity = document.createElement('a-plane');
         responseBackgroundEntity.setAttribute('position', '0.3 -0.2 -0.35');
         responseBackgroundEntity.setAttribute('width', '1.8');
@@ -180,7 +199,7 @@ AFRAME.registerComponent('chat-interaction', {
         responseText.setAttribute('color', 'white');
         responseBackgroundEntity.appendChild(responseText);
 
-        // Back button - links von der LLM Antwort
+        // Back button 
         const backButton = document.createElement('a-plane');
         backButton.setAttribute('id', 'chat-back-button');
         backButton.setAttribute('position', '-1 -0.2 -0.35');
@@ -210,35 +229,34 @@ AFRAME.registerComponent('chat-interaction', {
         responseEntity.appendChild(responseBackgroundEntity);
         responseEntity.appendChild(backButton);
         parentEntity.appendChild(responseEntity);
-        
-        // Store reference to response entity for cleanup
-        this.responseEntity = responseEntity;
     },
 
-    resetToInitialUI: function (responseEntity) {
-        console.log('[chat-interaction] Resetting to initial state');
-        
-        // Remove response display
+    /*
+    *  Used by the back button to go back to the ChatGPT UI.
+    *  Removes the responseEntity and resets the text and UI compoennts back to visible.
+    *  Sets state flag to initial and reenables the blink curser component if present.
+    */
+    resetToInitialUI: function (responseEntity) {        
         if (responseEntity && responseEntity.parentNode) {
             responseEntity.parentNode.removeChild(responseEntity);
         }
         
-        // Show original UI elements again
         if (this.data.textEntity) {
             this.data.textEntity.setAttribute('visible', true);
         }
         this.el.setAttribute('visible', true);
         
-        // Reset state
         this.state = 'initial';
         this.selectedOption = null;
         
-        // Re-enable blink cursor if it was there
         if (!this.el.hasAttribute('blink-cursor')) {
             this.el.setAttribute('blink-cursor', 'non_cursor_src: #chatgptuielements; cursor_src: #chatgptuielementswithcursor');
         }
     },
 
+    /*
+    * Cleans up event listeners when the component is removed.
+    */
     remove: function () {
         this.el.removeEventListener('click', this.onClick);
     }

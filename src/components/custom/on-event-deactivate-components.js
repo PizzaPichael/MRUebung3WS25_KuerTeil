@@ -1,3 +1,6 @@
+/*
+* This component removes specified components when an event fires.
+*/
 AFRAME.registerComponent('on-event-deactivate-components', {
     schema: {
         event: { type: 'string', default: '' },
@@ -6,6 +9,10 @@ AFRAME.registerComponent('on-event-deactivate-components', {
         components: { type: 'array', default: [] } // Array of component names to deactivate
     },
 
+    /*
+    * Validates inputs and wires the event listener.
+    * Normalizes components list and handles string or array with brackets
+    */
     init: function () {
         if (!this.data.event || this.data.event === '') {
             return;
@@ -15,7 +22,6 @@ AFRAME.registerComponent('on-event-deactivate-components', {
             return;
         }
 
-        // Normalize components list (handles string or array with brackets)
         if (typeof this.data.components === 'string') {
             this.data.components = this.data.components.split(',');
         }
@@ -28,26 +34,25 @@ AFRAME.registerComponent('on-event-deactivate-components', {
             return;
         }
 
-        // Determine where to listen for the event
         let target;
         if (this.data.target) {
-            // Listen on a specific entity (e.g., the plug entity)
             target = this.el.sceneEl.querySelector(this.data.target);
             if (!target) {
                 return;
             }
         } else {
-            // Use listenOn setting
             target = this.data.listenOn === 'scene' ? this.el.sceneEl : this.el;
         }
 
         this.deactivateComponentsBound = this.deactivateComponents.bind(this);
-        this.targetElement = target; // Store for cleanup
+        this.targetElement = target;
         target.addEventListener(this.data.event, this.deactivateComponentsBound);
     },
 
+    /*
+    * Removes the listed components from the entity.
+    */
     deactivateComponents: function () {
-        // Deactivate each component in the list
         this.data.components.forEach((componentName) => {
             if (this.el.hasAttribute(componentName)) {
                 this.el.removeAttribute(componentName);
@@ -56,6 +61,9 @@ AFRAME.registerComponent('on-event-deactivate-components', {
         this.remove();
     },
 
+    /*
+    * Removes the event listener when the component is detached.
+    */
     remove: function () {
         if (this.deactivateComponentsBound && this.targetElement) {
             this.targetElement.removeEventListener(this.data.event, this.deactivateComponentsBound);

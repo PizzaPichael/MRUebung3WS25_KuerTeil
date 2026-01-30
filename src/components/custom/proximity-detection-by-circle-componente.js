@@ -1,12 +1,12 @@
 /*
-This component allows for an entity to change its components attribute values when the camera/player reaches a certain
-designated proximity plane.
-Several components to change can be given to the component via an array.
-The component supports both the list and a single target input as I was to lazy to change the old single target
-variante on some entities.
-The version with several targets was used on the spawn-text-planes component f.e.
-
-Can be assigned to any entity.
+* This component allows for an entity to change its components attribute values when the camera/player reaches a certain
+* designated proximity plane.
+* Several components to change can be given to the component via an array.
+* The component supports both the list and a single target input as I was to lazy to change the old single target
+* variante on some entities.
+* The version with several targets was used on the spawn-text-planes component f.e.
+*
+* Can be assigned to any entity.
 */
 AFRAME.registerComponent('proximity-circle', {
     schema: {
@@ -20,11 +20,13 @@ AFRAME.registerComponent('proximity-circle', {
         compAttrNewBoolValue: { type: 'boolean', default: false }
     },
 
+    /*
+    * Initializes targets and caches their world positions.
+    */
     init: function () {
         this.camera = this.el.sceneEl.camera;
         this.targets = [];
 
-        // Adding targets to check the proximity for in the multiple targets array way
         if (this.data.changes && this.data.changes.length > 0) {
             this.data.changes.forEach((change) => {
                 if (change.target && change.component && change.attribute && change.value !== undefined) {
@@ -68,6 +70,9 @@ AFRAME.registerComponent('proximity-circle', {
         }
     },
 
+    /*
+    * Calculates whether the camera is inside the target radius.
+    */
     checkIfCameraInTarget: function (target) {
         const cameraWorldPosition = new THREE.Vector3();
         this.camera.getWorldPosition(cameraWorldPosition);
@@ -79,7 +84,9 @@ AFRAME.registerComponent('proximity-circle', {
         return distanceToTarget <= target.radius;
     },
 
-    // Checks the distance to each target with each tick
+    /*
+    * Checks the distance of each target every frame and updates component attributes.
+    */
     tick: function () {
         this.targets.forEach((target) => {
             const isInside = this.checkIfCameraInTarget(target);
@@ -94,6 +101,9 @@ AFRAME.registerComponent('proximity-circle', {
         });
     },
 
+    /*
+    * Clears cached references when the component is removed.
+    */
     remove: function () {
         this.targets = [];
         this.camera = null;

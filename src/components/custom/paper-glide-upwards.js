@@ -1,3 +1,6 @@
+/*
+* This component moves an entity upward and rotates it toward the camera.
+*/
 AFRAME.registerComponent('glide-upwards', {
     schema: {
         enabled: { type: 'boolean', default: true },
@@ -5,12 +8,14 @@ AFRAME.registerComponent('glide-upwards', {
         heightOffset: { type: 'number', default: 0.0 }
     },
 
+    /*
+    * Initializes reference transforms and the target rotation.
+    */
     init: function() {
         this.camera = this.el.sceneEl.camera;
         this.initialPosition = this.el.object3D.position.clone();
         this.initialQuaternion = this.el.object3D.quaternion.clone();
         this.targetQuaternion = new THREE.Quaternion();
-        // Ziel-Rotation 90° auf X-Achse
         this.targetQuaternion.setFromEuler(new THREE.Euler(
             0, 
             THREE.MathUtils.degToRad(90),
@@ -18,6 +23,9 @@ AFRAME.registerComponent('glide-upwards', {
         ));
     },
 
+    /*
+    * Updates position and rotation each frame based on state.
+    */
     tick: function() {
         if (!this.data.enabled) {
             if (!this.el.object3D.quaternion.equals(this.initialQuaternion)) {

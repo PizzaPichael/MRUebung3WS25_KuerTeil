@@ -1,5 +1,5 @@
 /*
-This component is for debugging purposes only and has been written by copilot.
+* This component is for debugging purposes only and has been written by copilot.
 */
 AFRAME.registerComponent('camera-position-debug', {
   schema: {
@@ -7,6 +7,9 @@ AFRAME.registerComponent('camera-position-debug', {
     autoLog: { type: 'boolean', default: false }  // Automatisches Logging an/aus
   },
   
+  /*
+  * Initializes tracking vectors and binds the manual log method.
+  */
   init: function() {
     this.lastPosition = new THREE.Vector3();
     this.currentPosition = new THREE.Vector3();
@@ -21,6 +24,9 @@ AFRAME.registerComponent('camera-position-debug', {
     this.logCurrentState = this.logCurrentState.bind(this);
   },
   
+  /*
+  * Logs the current camera position and rotation to the console.
+  */
   logCurrentState: function() {
     this.el.object3D.getWorldPosition(this.currentPosition);
     this.currentRotation.copy(this.el.object3D.rotation);
@@ -38,6 +44,9 @@ AFRAME.registerComponent('camera-position-debug', {
     console.log('===================');
   },
   
+  /*
+  * Logs camera state when movement exceeds the configured threshold.
+  */
   tick: function() {
     if (!this.data.autoLog) return;
     

@@ -1,12 +1,15 @@
 /*
-This component is for debugging purposes only and has been written by copilot.
-Supports both desktop (look-controls) and VR modes.
+* This component is for debugging purposes only and has been written by copilot.
+* Supports both desktop (look-controls) and VR modes. (Comment by Michael: this is not true, it only works in desktop mode)
 */
 AFRAME.registerComponent('camera-persistence', {
   schema: {
     enabled: { type: 'boolean', default: false }
   },
 
+  /*
+  * Initializes persistence state, VR listeners, and stored transforms.
+  */
   init: function () {
     this.isVRMode = false;
 
@@ -34,6 +37,9 @@ AFRAME.registerComponent('camera-persistence', {
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   },
 
+  /*
+  * Restores the last saved position when entering VR mode.
+  */
   onEnterVR: function () {
     this.isVRMode = true;
     console.log('Entered VR mode');
@@ -51,11 +57,17 @@ AFRAME.registerComponent('camera-persistence', {
     }
   },
 
+  /*
+  * Updates state flags when leaving VR mode.
+  */
   onExitVR: function () {
     this.isVRMode = false;
     console.log('Exited VR mode');
   },
 
+  /*
+  * Loads saved position and rotation from localStorage.
+  */
   loadCameraState: function () {
     const savedPosition = localStorage.getItem('cameraPosition');
     const savedRotation = localStorage.getItem('cameraRotation');
@@ -84,6 +96,9 @@ AFRAME.registerComponent('camera-persistence', {
     }
   },
 
+  /*
+  * Persists the current camera transform when enabled.
+  */
   saveCameraState: function () {
     if (!this.data.enabled) return;
 
@@ -98,11 +113,16 @@ AFRAME.registerComponent('camera-persistence', {
     console.log('Camera state saved' + (this.isVRMode ? ' (VR mode)' : ''));
   },
 
+  /*
+  * Saves the enabled toggle to localStorage on updates.
+  */
   update: function (oldData) {
-    // Enabled-Status speichern
     localStorage.setItem('cameraPersistenceEnabled', this.data.enabled);
   },
 
+  /*
+  * Removes event listeners when the component is detached.
+  */
   remove: function () {
     window.removeEventListener('beforeunload', this.beforeUnloadHandler);
     if (this.scene) {

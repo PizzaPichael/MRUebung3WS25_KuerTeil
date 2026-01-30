@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kuer Abgabe WiSe 25/26</title>
+
+    <!-- A-Frame and dependencies if local dependencies exist
+    <script src="/node_modules/aframe/dist/aframe-master.min.js"></script>
+    <script src="/node_modules/ammo.js/ammo.js"></script>
+    <script src="/node_modules/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
+    <script src="/node_modules/aframe-extras/dist/aframe-extras.min.js"></script>
+    -->
+
+    <!--External dependencies-->
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.4/dist/aframe-physics-system.min.js"></script>
@@ -71,6 +80,7 @@
   <body>
     
     <!-- Debug UI, written by Copilot -->
+     <!--
     <div id="debug-ui">
       <button id="logCameraBtn">Log Camera Position</button>
       <label>
@@ -104,6 +114,7 @@
           }
         });
     </script>
+    -->
 
     <!--Scene-->
     <a-scene id="scene"
@@ -274,15 +285,13 @@
         ammo-shape="type: box"
       ></a-box>
 
-      <!--VR Entities - spawned by vr-entities-spawner component-->
-      <!--Set enabled: false to disable VR entities-->
+      <!--VR Entities component-->
       <a-entity id="vr-entities"
-        vr-entities-spawner="enabled: false"
+        vr-entities-spawner="enabled: true"
         hide-on-enter-ar
       ></a-entity>
 
-      <!--AR Entities - spawned by ar-entities-spawner component-->
-      <!--Set enabled: false to disable AR entities-->
+      <!--AR Entities component-->
       <a-entity id="ar-entities"
         ar-entities-spawner="enabled: true"
         hide-on-enter-vr
