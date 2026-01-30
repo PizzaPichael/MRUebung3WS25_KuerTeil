@@ -1,3 +1,6 @@
+/*
+* This component teleports an entity when a specified event fires.
+*/
 AFRAME.registerComponent('on-event-teleport', {
     schema: {
         event: { type: 'string', default: '' },
@@ -7,12 +10,14 @@ AFRAME.registerComponent('on-event-teleport', {
         rotation: { type: 'vec3', default: '0 0 0' }
     },
 
+    /*
+    * Stores target transforms and wires the event listener.
+    */
     init: function () {
         if(!this.data.event || this.data.event === '') {
             return;
         }
 
-        // Store target position
         this.targetPosition = new THREE.Vector3(
             this.data.position.x,
             this.data.position.y,
@@ -25,26 +30,25 @@ AFRAME.registerComponent('on-event-teleport', {
             this.data.rotation.z
         )
 
-        // Determine where to listen for the event
         let target;
         if (this.data.target) {
-            // Listen on a specific entity (e.g., the plug entity)
             target = this.el.sceneEl.querySelector(this.data.target);
             if (!target) {
                 return;
             }
         } else {
-            // Use listenOn setting
             target = this.data.listenOn === 'scene' ? this.el.sceneEl : this.el;
         }
         
         this.teleportBound = this.teleportEntity.bind(this);
-        this.targetElement = target; // Store for cleanup
+        this.targetElement = target;
         target.addEventListener(this.data.event, this.teleportBound);
     },
 
+    /*
+    * Applies the target position and rotation to the entity.
+    */
     teleportEntity: function() {
-        // Use setAttribute to properly update position in A-Frame
         this.el.setAttribute('position', {
             x: this.targetPosition.x,
             y: this.targetPosition.y,

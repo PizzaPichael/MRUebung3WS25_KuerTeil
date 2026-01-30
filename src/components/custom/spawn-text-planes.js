@@ -1,12 +1,12 @@
 /* 
-This component spawns Text-Plane entities with the desired spiral movement.
-The planes look at the socket-entity in the scene while the player has not reached
-the proximityPlaneStopIdleFocus proximity plane yet.
-When reached, the palnes look at the player.
-When reaching the proximityPlaneStopSpiral plane the planes stop spiraling and just look at the player
-from the position they were last in.
-
-Is used on an empty entity inside the scene.
+* This component spawns Text-Plane entities with the desired spiral movement.
+* The planes look at the socket-entity in the scene while the player has not reached
+* the proximityPlaneStopIdleFocus proximity plane yet.
+* When reached, the palnes look at the player.
+* When reaching the proximityPlaneStopSpiral plane the planes stop spiraling and just look at the player
+* from the position they were last in.
+*
+* Is used on an empty entity inside the scene.
 */
 AFRAME.registerComponent('spawn-text-planes', {
     schema: {
@@ -17,6 +17,9 @@ AFRAME.registerComponent('spawn-text-planes', {
         overWriteStartPos: { type: 'string', default: '' }
     },
 
+    /*
+    * Spawns text planes and configures movement and interaction behaviors.
+    */
     init: function () {
         this.data.texts.forEach((text, index) => {
             const plane = document.createElement('a-plane');
@@ -97,9 +100,9 @@ AFRAME.registerComponent('spawn-text-planes', {
     },
 
     /*
-    Calculates a grid position for each text plane based on its index so that they dont spawn at the same place.
-    Uses a 3-column layout and offsets the grid.
-    Z is fixed so all planes spawn on the same depth and has been found by testing.
+    * Calculates a grid position for each text plane based on its index so that they dont spawn at the same place.
+    * Uses a 3-column layout and offsets the grid.
+    * Z is fixed so all planes spawn on the same depth and has been found by testing.
     */
     calculatePosition: function (index) {
         const row = Math.floor(index / 3);
@@ -113,6 +116,9 @@ AFRAME.registerComponent('spawn-text-planes', {
         }
     },
 
+    /*
+    * Returns a random float between min and max.
+    */
     randomValue: function (min, max) {
         return min + Math.random() * (max - min);
     }

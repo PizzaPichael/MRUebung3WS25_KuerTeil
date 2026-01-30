@@ -1,5 +1,9 @@
-// This component was written in collaboration with GitHub Copilot to make objects grabbable in VR scenes
-// as the exsiting packages I could not get to work with my project.
+/*
+* This component was written in collaboration with GitHub Copilot to make objects grabbable in VR scenes
+* as the exsiting packages I could not get to work with my project.
+* Collaboration mainly involved figuring out how to change the ammo-body parameters mid render as it is
+* almost impossible to do. But Copilot figured out a way for this in the onGrabEnd function.
+*/
 
 AFRAME.registerComponent('grabbable-custom', {
     schema: { 
@@ -7,12 +11,12 @@ AFRAME.registerComponent('grabbable-custom', {
         isPlug: { type: 'boolean', default: false } 
     },
 
+    /*
+    * The init function ensures the object has ammo-body for physics,
+    * sets a variable and flag and registers event listeners to events
+    * that are emitted from the hand-grab component on the controllers.
+    */
     init: function () {
-        // Ensure the object has ammo-body for physics
-        if (!this.el.hasAttribute('ammo-body')) {
-            console.warn('Grabbable objects must have an ammo-body component.');
-            return;
-        }
 
         const body = this.el.getAttribute('ammo-body');
         if (!body) {
@@ -27,6 +31,13 @@ AFRAME.registerComponent('grabbable-custom', {
         this.el.addEventListener('grab-end', this.onGrabEnd.bind(this));
     },
 
+    /*
+    * Tries to set the ammo-body type to kinematic (although this virtually never works because
+    * somehow it is not possible to change the parameters of the ammo-body and shape component while
+    * the scene is running)
+    * and sets the grabbed flag as well as emits an event if the grabbed object is the plug.
+    * Sets the gravity of the grabbed object to zero.
+    */
     onGrabStart: function () {
         console.log('onGrabStart');
         if (this.originalBodyType === 'static') {
@@ -34,15 +45,15 @@ AFRAME.registerComponent('grabbable-custom', {
         }
         this.isGrabbed = true;
         if(this.data.isPlug) {
-            console.log('emitting plug-grabbed event');
-            console.log('el', this.el);
             this.el.emit('plug-grabbed');
         }
 
-        // Disable gravity while the object is grabbed
         this.el.setAttribute('ammo-body', 'gravity', '0 0 0');
     },
 
+    /*
+    * Handles setting the obejcts ammo-body back to a physics influecned body, if needed.
+    */
     onGrabEnd: function () {
         if (!this.isGrabbed) return;
       
@@ -86,16 +97,11 @@ AFRAME.registerComponent('grabbable-custom', {
         }
       },
 
+    /*
+    * Handles the removal process of the compoennt if needed.
+    */
     remove: function () {
         this.el.removeEventListener('grab-start', this.onGrabStart);
         this.el.removeEventListener('grab-end', this.onGrabEnd);
-    },
-
-    play: function () {
-        // Optional: Add any logic when the object becomes active
-    },
-
-    pause: function () {
-        // Optional: Add any logic when the object becomes inactive
     }
 });

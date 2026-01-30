@@ -1,5 +1,5 @@
 /*
-This compoenent enables an entity to spiral up and down in a helix pattern.
+* This compoenent enables an entity to spiral up and down in a helix pattern.
 */
 AFRAME.registerComponent('spiral-movement', {
     schema: {
@@ -13,8 +13,11 @@ AFRAME.registerComponent('spiral-movement', {
         enabled: { type: 'boolean', default: true },
     },
 
+    /*
+    * Initializes spiral parameters and the origin position.
+    * If no position is given as a parameter, the objects position is used as origin position.
+    */
     init: function () {
-        // If no position is given as a parameter, the objects position is used as origin position.
         if (
             this.data.originPosition.x === 0 &&
             this.data.originPosition.y === 0 &&
@@ -43,6 +46,9 @@ AFRAME.registerComponent('spiral-movement', {
         this.angle = 0; // Angle the entity spirals on. Can be thought of as the angle of a circle around the origin position
     },
 
+    /*
+    * Updates the entity position along a helix each frame.
+    */
     tick: function (time, deltaTime) {
         if (!this.data.enabled) return;
 

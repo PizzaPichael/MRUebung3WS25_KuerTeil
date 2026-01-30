@@ -1,23 +1,28 @@
 /*
- * VR Entities Component
- * Spawns all VR-specific entities when the component is initialized.
- * Can be disabled by setting enabled: false
- */
+* This component spawns all VR-specific entities when the component is initialized.
+* Can be disabled by setting enabled: false
+*/
 AFRAME.registerComponent('vr-entities-spawner', {
     schema: {
         enabled: { type: 'boolean', default: true }
     },
 
+    /*
+    * Initializes the VR entity spawner and triggers creation.
+    */
     init: function () {
         if (!this.data.enabled) {
-            console.log('[vr-entities-spawner] Disabled, not spawning VR entities');
+            console.log('vr-entities-spawner: Disabled, not spawning VR entities');
             return;
         }
 
-        console.log('[vr-entities-spawner] Spawning VR entities');
+        console.log('vr-entities-spawner: Spawning VR entities');
         this.spawnVREntities();
     },
 
+    /*
+    * Creates and appends all VR-specific entities.
+    */
     spawnVREntities: function () {
         const container = this.el;
 
@@ -310,6 +315,7 @@ AFRAME.registerComponent('vr-entities-spawner', {
         blackbox.appendChild(dieselGen);
 
         // Dynamic test box
+        /*
         const testBox = document.createElement('a-box');
         testBox.setAttribute('id', 'dynamic-test');
         testBox.setAttribute('position', '-0 3 -121.585');
@@ -320,6 +326,7 @@ AFRAME.registerComponent('vr-entities-spawner', {
         testBox.setAttribute('ammo-shape', 'type: box');
         testBox.setAttribute('grabbable-custom', '');
         blackbox.appendChild(testBox);
+        */
 
         // Room proximity plane
         const roomProximity = document.createElement('a-circle');

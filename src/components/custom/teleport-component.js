@@ -1,7 +1,7 @@
 /* 
-This component has been written by Copilot, 
-usind the a-frame blog entry https://aframe.io/blog/teleport-component/ as a reference.
-I wasnt able to implement the existing teleport-component as it was too old.
+* This component has been written by Copilot, 
+* usind the a-frame blog entry https://aframe.io/blog/teleport-component/ as a reference.
+* I wasnt able to implement the existing teleport-component as it was too old.
 */
 AFRAME.registerComponent('simple-teleport', {
   schema: {
@@ -17,12 +17,14 @@ AFRAME.registerComponent('simple-teleport', {
     speed: {type: 'number', default: 5}
   },
 
+  /*
+  * Initializes teleport visuals, raycaster, and input listeners.
+  */
   init: function() {
     this.active = false;
     this.hitPoint = new THREE.Vector3();
     this.rigWorldPosition = new THREE.Vector3();
     
-    // Erstelle Kurven-Line
     const points = [];
     for (let i = 0; i < this.data.curvePoints; i++) {
       points.push(new THREE.Vector3());
@@ -71,11 +73,17 @@ AFRAME.registerComponent('simple-teleport', {
     this.el.addEventListener(this.data.button + 'up', this.onButtonUp);
   },
 
+  /*
+  * Activates teleport targeting while the button is held.
+  */
   onButtonDown: function() {
     this.active = true;
     this.curve.visible = true;
   },
 
+  /*
+  * Executes teleport if a valid hit point was found.
+  */
   onButtonUp: function() {
     if (this.active && this.hitPoint) {
       this.teleport();
@@ -85,6 +93,9 @@ AFRAME.registerComponent('simple-teleport', {
     this.hitMarker.visible = false;
   },
 
+  /*
+  * Moves the camera rig to the hit point and emits a teleport event.
+  */
   teleport: function() {
     if (!this.data.cameraRig) return;
     
@@ -107,6 +118,9 @@ AFRAME.registerComponent('simple-teleport', {
     });
   },
 
+  /*
+  * Updates the curve, hit detection, and visuals each frame.
+  */
   tick: function() {
     if (!this.active) return;
     
@@ -230,6 +244,9 @@ AFRAME.registerComponent('simple-teleport', {
     }
   },
 
+  /*
+  * Removes listeners and helper meshes when the component is removed.
+  */
   remove: function() {
     this.el.removeEventListener(this.data.button + 'down', this.onButtonDown);
     this.el.removeEventListener(this.data.button + 'up', this.onButtonUp);
