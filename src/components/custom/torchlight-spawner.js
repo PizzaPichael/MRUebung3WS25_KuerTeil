@@ -61,7 +61,7 @@ AFRAME.registerComponent('torchlight-spawner', {
                 decay: this.data.decay
             });
 
-            // Subtle flicker to make the light feel like fire
+            // Flicker to make the light feel like fire
             const flickerBase = this.data.intensity;
             // Each light gets random values so that the lights do not flicker synchronous
             const flickerLow = flickerBase * THREE.MathUtils.randFloat(0.6, 0.8);

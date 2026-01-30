@@ -12,12 +12,12 @@
 
 // Using the configuration
 #show: tuw-thesis.with(
-  header-title: "Mixex Reality",
+  header-title: "Mixed Reality",
 )
 
 #maketitle(
-  title: [Kuer-Abgabe im Wintersemester],
-  thesis-type: [Mixed Reality Kuer Abgabe],
+  title: [Kuer-Abgabe],
+  thesis-type: [Mixed Reality, WS 2025/26],
   authors: (
     (
       name: "Michael Kaup",
