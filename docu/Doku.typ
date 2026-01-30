@@ -16,14 +16,14 @@
 )
 
 #maketitle(
-  title: [Kuer-Abgabe im Wintersemester 2025/26],
+  title: [Kuer-Abgabe im Wintersemester],
   thesis-type: [Mixed Reality Kuer Abgabe],
   authors: (
     (
       name: "Michael Kaup",
       email: "michael.kaup@student.htw-berlin.de",
       matrnr: "s0589545",
-    )
+    ),
   ),
 )
 
@@ -35,6 +35,10 @@
 
 #include "01_Themenvorschlag/01_Themenvorschlag.typ"
 
+#pagebreak()
+
 #include "02_Abschlussdokumentation/02_Abschlussdokumentation.typ"
+
+#pagebreak()
 
 #bibliography("09_Bibliography/09_Bibliography.bib")

@@ -18,6 +18,7 @@
     "aframe": "^1.7.1",
     "aframe-extras": "^7.6.1",
     "aframe-physics-system": "^4.0.2",
-    "ammo.js": "^0.0.10"
+    "ammo.js": "^0.0.10",
+    "typst": "^0.10.0-8"
   }
 }
