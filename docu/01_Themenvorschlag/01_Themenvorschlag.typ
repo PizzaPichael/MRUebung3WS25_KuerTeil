@@ -1,13 +1,13 @@
 = Themenvorschlag <themenvorschlag>
 
-== Thema 
+== Thema
 
 Die Szene soll eine Karikatur der aktuellen Entwicklung sogenannter „Künstlicher Intelligenz“ am Beispiel eines Chatbots darstellen.
 Sie soll die übertrieben angepriesene Darstellung der Künstlichen Intelligenz durch Entwickelnde und Teilhabende sowie die den „Künstlichen Intelligenzen“ zugrunde liegenden gesellschaftlichen Problematiken gegenüberstellen.
 
 == Szenenaufbau
 
-Die spielende/beobachtende Person befindet sich in einem Vorraum, vor sich eine Tür. Diese Tür kann geöffnet werden. Tritt man durch die Tür, gelangt man in einen großen, einem Thronsaal ähnlichen Raum. In diesem schwebt der Tür gegenüber, am anderen Ende des Raumes ein Computer über einer mit Stufen erreichbaren Podest. 
+Die spielende/beobachtende Person befindet sich in einem Vorraum, vor sich eine Tür. Diese Tür kann geöffnet werden. Tritt man durch die Tür, gelangt man in einen großen, einem Thronsaal ähnlichen Raum. In diesem schwebt der Tür gegenüber, am anderen Ende des Raumes ein Computer über einer mit Stufen erreichbaren Podest.
 Spielende können sich im Thronsaal frei bewegen.
 Mit dem Computer können Spielende interagieren. Er zeigt das Chatfenster einer ChatGPT Sitzung an. Es soll möglich sein, via Tastatureingabe mit ChatGPT zu interagieren, so, wie man es an seinem Computer tun würde.
 
