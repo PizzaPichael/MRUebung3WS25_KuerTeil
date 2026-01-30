@@ -3,7 +3,7 @@
 */
 AFRAME.registerComponent('spiral-movement', {
     schema: {
-        originPosition: { type: 'vec3', default: '0 0 0' },
+        originPosition: { type: 'vec3', default: { x: 0, y: 0, z: 0 } },
         spiralRadius: { type: 'number', default: 1 },
         spiralHeight: { type: 'number', default: 5 },
         spiralPitch: { type: 'number', default: 1 },

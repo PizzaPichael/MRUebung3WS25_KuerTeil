@@ -6,8 +6,8 @@ AFRAME.registerComponent('on-event-teleport', {
         event: { type: 'string', default: '' },
         listenOn: { type: 'string', default: 'entity' }, // 'entity' or 'scene'
         target: { type: 'string', default: '' }, // Use entity id here
-        position: { type: 'vec3', default: '0 0 0' },
-        rotation: { type: 'vec3', default: '0 0 0' }
+        position: { type: 'vec3', default: { x: 0, y: 0, z: 0 } },
+        rotation: { type: 'vec3', default: { x: 0, y: 0, z: 0 } }
     },
 
     /*
