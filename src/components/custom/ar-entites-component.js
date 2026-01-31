@@ -89,7 +89,7 @@ AFRAME.registerComponent('ar-entities-spawner', {
             noIdle: true,
             overWriteStartPos: '-15 3 -20'
         });
-        blackbox.appendChild(textPlanesSpawner);
+        container.appendChild(textPlanesSpawner);
 
         // AR Generator Area (empty container)
         const emptyGenerator = document.createElement('a-entity');
