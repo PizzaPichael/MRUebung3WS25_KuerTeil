@@ -16,7 +16,6 @@ AFRAME.registerComponent('vr-entities-spawner', {
             return;
         }
 
-        console.log('vr-entities-spawner: Spawning VR entities');
         this.spawnVREntities();
     },
 
@@ -380,7 +379,5 @@ AFRAME.registerComponent('vr-entities-spawner', {
         blackbox.appendChild(textPlanesSpawner);
 
         container.appendChild(blackbox);
-
-        console.log('[vr-entities-spawner] VR entities spawned successfully');
     }
 });

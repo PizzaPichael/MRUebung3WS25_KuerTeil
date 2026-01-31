@@ -14,7 +14,6 @@ AFRAME.registerComponent('ar-entities-spawner', {
             return;
         }
 
-        console.log('[ar-entities-spawner] Spawning AR entities');
         this.spawnAREntities();
     },
 
@@ -83,6 +82,14 @@ AFRAME.registerComponent('ar-entities-spawner', {
         arComputer.appendChild(computerLight);
 
         container.appendChild(arComputer);
+
+        const textPlanesSpawner = document.createElement('a-entity');
+        textPlanesSpawner.setAttribute('spawn-text-planes', {
+            texts: 'texts: Missing transparency, Racial Profiling, Water scarcity, Discrimination, Distortion, Dominance of large tech companies, Desinformation, Rising temperatures, Light polution, Lazyness, Unfair',
+            noIdle: true,
+            overWriteStartPos: '-15 3 -20'
+        });
+        blackbox.appendChild(textPlanesSpawner);
 
         // AR Generator Area (empty container)
         const emptyGenerator = document.createElement('a-entity');
@@ -194,7 +201,5 @@ AFRAME.registerComponent('ar-entities-spawner', {
 
         arTerminal.appendChild(oldPaper);
         container.appendChild(arTerminal);
-
-        console.log('[ar-entities-spawner] AR entities spawned successfully');
     }
 });
