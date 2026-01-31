@@ -41,4 +41,8 @@
 
 #pagebreak()
 
-#bibliography("09_Bibliography/09_Bibliography.bib")
+#bibliography((
+  "03_Bibliography/03_Bibliography_Code.bib",
+  "03_Bibliography/03_Bibliography_Assets.bib",
+  "03_Bibliography/03_Bibliography_Materials.bib"
+  ), full: true)<bib>

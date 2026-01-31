@@ -1,4 +1,7 @@
-// This component adds lights to the throneroom above the torch models.
+/*
+*  This component has been written in colaboration with Codex Agent.
+*  This component adds lights to the throneroom above the torch models.
+*/
 AFRAME.registerComponent('torchlight-spawner', {
     schema: {
         torchHeight: { type: 'number', default: 5.41 },

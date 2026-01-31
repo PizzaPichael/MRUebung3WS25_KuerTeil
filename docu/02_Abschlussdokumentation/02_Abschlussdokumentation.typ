@@ -54,10 +54,11 @@ Die vierte und letzte Art der Interaktion ist das Umherschauen durch Bewegung de
 == Design der Szene <design>
 Die Szene folgt keinem festen Designpattern. Grundsätzlich habe ich hier die Funktion der Objekte, also etwas bestimmtes darzustellen wie z.B. einen Computer oder einen Altar, über ein konsistentes Design gestellt. Einzige Design-Anforderung war, dass die Objekte im Thronsaal, bis auf den Computer, einen mittelalterlichen Look haben, sollten, sowie die Objekte innerhalb der Blackbox einem neumodischen/futuristischen Design folgen dürfen.
 Dieser Unterschied sollte die Diskrepanz zwischen der auf Laien undurchsichtig und einfach wirkenden und eventuell, mit Blick auf positive gesellschaftliche Veränderungen, überschätzten Technologie der LLMs und deren tatsächlichen Komplexität und Folgen verdeutlichen.
+Alle Assets sind im Litarturnachweis mit Link zur entsprechenden Quelle für schnelle Einsicht aufgelistet. Das Thronsaal Modell ist ein selbst erstelltes Asset, dass mehrere einzelne Assets kombiniert. 
 
 == Technische Dokumentation <technik>
 === Build-Tool
-Für die Entwicklung und das Deployment wurde Vite als Build-Tool eingesetzt. Vite bietet einen schnellen Entwicklungsserver mit Hot Module Replacement und optimiert beim Build-Prozess automatisch die Assets. Die Konfiguration erfolgt über die `vite.config.js` im Wurzelverzeichnis.
+Für die Entwicklung und das Deployment wurde Vite als Build-Tool eingesetzt. Vite bietet einen schnellen Entwicklungsserver mit Hot Module Replacement. Die Konfiguration erfolgt über die `vite.config.js` im Wurzelverzeichnis.
 
 === Projektstruktur
 Im root-Verzeichnis befindet sich eine `index.html`, in der die A-Frame-Szene erstellt wurde. Diese beinhaltet die Einbindung aller benötigten externen A-Frame-Bibliotheken, Custom-Components sowie aller Assets, also 3D-Modelle und Texturen. Die Szene selbst ist in zwei Hauptkomponenten unterteilt: `vr-entities-component.js` und `ar-entites-component.js`, die jeweils die VR- und AR-Entities spawnen und verwalten.
@@ -111,8 +112,76 @@ Für die spezifischen Anforderungen der Szene wurden mehrere Custom Components e
 Alle Components folgen der A-Frame-Komponenten-API mit `init()`, `update()`, `tick()` und `remove()` Lifecycle-Methoden.
 
 == Problemstellungen und Lösungen <probleme>
-Wie bereits in @abschluss erwähnt, konnte die Idee der MR-Szene aus dem vorangegangenen Themevorschlag  
+Wie bereits in @abschluss erwähnt, konnte die Idee der MR-Szene aus dem vorangegangenen Themevorschlag nicht vollumfänglich umgesetzt werden. Die Idee war vor allem für den gegebene Zeitrahmen zu Aufwändig. Desweiteren führten Erkenntnisse und Entwicklungsprobleme dazu, dass ich dei Szene in ihrem funktionalen sowie visuellen Umfang deutlich einschrenken musste. Einige dieser Erkenntnisse und Probleme führe ich folgend auf.
+
+=== Zeitliche Limitation
+Die ursprüngliche Idee beinhaltete z.B. eine Video-Vision beim Öffnen einer Tür abzuspielen, die die gesellschaftlichen Nachteile der KI-Industrie verdeutlichen sollte. Allerdings wäre die Recherche und das Zusammenschneiden von geeignetem Videomaterial sehr zeitaufwendig gewesen, zumal ichmich nur wenig mit der Erstellung von Videos auskenne. Das ganze hätte außerdem nur einen geringen Beitrag zu der eigentlichen Aufgabe geleistet, eine MR-Anwendung zu erstellen, weshalb ich mich voerst für eine simplere Darstellung dierser gesellschaftlichen nachteile als fligende Textplanes entscheiden habe.
+
+Desweiteren konnten Features wie die Interaktion mit einer ChatGPT-Sitzung, die Interaktion mit Türen, Physics-Basierte Kabel sowie das in Flammen stehen des Thronsaals aufgrund ihrer Komplexität zeitlich nicht umgesetzt werden.  
+
+=== Limitationen durch A-Frame und Community Komponenten <aframelimit>
+Die Entwicklung in A-Frame stellte sich schnell als komplizierter heraus als im vorhinein angenommen. Auch wenn das Framework eine einfache Implementation von VR-Szenen verspricht, ist es jedoch insofern limitiert, dass in meinem Entwicklungsprozess einige der Community Komponenten nicht mit der aktuellen A-Frame Version funktionierten, ein Beispiel ist die Teleport Komponente @aframeteleportcomponent oder die Komponente die das Greifen von Objekten ermöglichen sollte @superhands. 
+
+Einige wurden zuletzt vor mehreren Jahren aktualisiert und lassen sich dementsprechend nicht mit der aktuellen Version von A-Frame nutzen. Auch lies sich nicht einfach sagen, welche A-Frame Version die Funktion aller Komponenten gewährleistet hätte. Andere, wie die Super-Hands-Component@superhands funktionierten aufgrund von Fehlern nicht.
+
+Auch A-Frame selber war an einigen Stellen eine Limitation, als dass die Dokumentation meiner Meinung nach nicht tief genug geht und nicht alle möglichen Parameter und Anpassungsmöglichkeiten ausreichend veranschaulicht.
+
+Das alles kombiniert führte dazu, dass ich mich zuerst mit der Entwicklung entsprechender Komponenten auseinander setzen musste, wie z.B. einer Teleport- und eine Grab-Funktion. Um den Entwicklungsaufwand jedoch so gering wie möglich zu halten, habe ich die Hilfe eines LLM-Assistenten genutzt, mehr dazu in @llm.
+
+=== Debugging
+Wie in jedem Projekt ist Dabugging ein integraler Bestandteil des Entwicklungsprozesses. Da wie in @aframelimit beschrieben jedoch die Dokumentation meiner Meinung nach nicht ausreichend ist, war das Debugging an einigen Stellen sehr Ressourcenaufwendig. Dazu kommt, dass auch Komponenten wie das A-Frame Physisc-System@physiscsystem eher mit einer sperrlichen Dokumentation daherkommen, was seien Implementation erschwerte.
+
+=== Physisc-System
+Ein wiederkehrendes Problem war, dass ich die Physics-Einwirkung des Plugs oder des Computers habe ausschalten wollen oder Properties des physics-bodies während des Renderprozesses ändern wollte. Das ist aber anscheinend nicht möglich, wird jedoch in der Dokumentation nicht erwähnt. Durch ausprobieren habe ich festgestell, dass es zwar möglich ist, z.B. die ammo-body Komponente, die das physikalische Verhalten des Objektes bestimmt, während die Szene gerendert wird zu entfernen und wieder hinzu zu fügen. Danach lassen sich allerdings die Attribute dieser nicht mehr bearbeiten und es wird nur eine "leere" ammo-body Komponente hinzugefügt. Das führt dazu, dass das Objekt zwar Gravity erfährt, aber z.B. keine Kollisionen zwischen dem Objekt und anderen statischen Objekten wie dem Boden möglich sind und das Objekt ins unendliche fällt.
+Auch das mesch wrapping der Komponente im sog. "hull" Modus ist relativ ungenau und platziert physics meshs oft mit einem Offset zu der eigentlichen Objektposition. 
 
 == LLM Nutzung <llm>
 
+=== LLMs als Ersatz für Internetrecherche und zur Fehlerbehebung<llminternetrecherche>
+In diesem Projekt habe ich in Kollaboration mit dem GitHub Copilot sowie dem Agent System der Cursor IDE gearbeitet. Der Großteil meiner Kollaboration besteht dabei aus Anfragen die die Suche im Internet nach Einzelheiten zu Programmiersprachen ersätzen, z.B. wie bestimmte Datentypen funktionieren oder, aus Aufforderungen, sogenannte Sisyphos Arbeit zu verrichten, siehe @CodexPromptSisyphos. 
+
+#figure(
+  image("../assets/CodexPromptSisyphos-.png", width: 50%),
+  caption: [
+    Aufforderung an den Codex Agent, mehrer Stellen in der index Datei mit einer bestimmten Komponente zu versehen.
+  ],
+)<CodexPromptSisyphos>
+
+Desweiteren benutze ich LLMs für die Fehler-Erläuterung und Behebung, wie z.B. in zu sehen.
+#figure(
+  image("../assets/CodexPromptError.png", width: 50%),
+  caption: [
+    Aufforderung an den Codex Agent, eine Fehlerursache zu erläutern.
+  ],
+)<CodexPromptError>
+
+=== Kollaboration mit LLMs
+Einige scripte wurde unterdessen komplett von Copilot geschrieben, weil ich diese entweder nur für Debugging Zwecke brauchte und keine Zeit in diese investieren wollte, oder weil es eigentlich eine Community Komponente für diese Funktion gab, die Komponente aber bei mir nicht funktioniert hat. Um Entwicklungsaufwand zu sparen und weil die Nutzung einer bereits von einem Menschen geschriebenen Kompoennte für mich das gleiche ist, wie eine von einem LLM verfasste Komponente zu nutzen, habe ich als Ersatz das LLM eine Komponente verfassen lassen.
+
+Die betroffenen Komponenten sind foglende:
+- `camera-persistence.js`
+- `camera-position-debug.js`
+- `teleport-component.js`
+
+Weitere Komponenten wurden in starker Kollaboration mit einem LLM geschrieben. Starke Kollaboration meint hier, dass das LLM einen großen Einfluss auf Funktion und Struktur der Komponente hat, mein eigener Einfluss aber mindestens genauso relevant und umfangreich ist, weshalb nicht genau trennbar ist, welche Teile nun mein Code und welche Teile das LLM verfasst hat. Solche Komponenten waren entweder von mir oder dem LLM erstellt und im Laufe öfter von mir und dem LLM modifziert worden. 
+
+Die Komponenten sind folgende:
+- `grabbable-custom.js`
+- `hand-grab.js` 
+- `chat-interaction.js` 
+- `chat-interaction.js`
+
+Alle anderen Komponenten wurden ebenfalls von einem LLM teilweise modifiziert, aber nicht in einem Rahmen der die unter @llminternetrecherche genannten Nutzungsarten überschreitet. Alle relevanten Komponenten, auf die ein LLM nennenswerten Einfluss hatte wurden entsprechend kommentiert. 
+
+Generell verfolge ich bei der Nutzung von LLMs im Programmierprozess den Ansatz, mir die Arbeit nicht abnehmen zu lassen, sondern sie zu erleichtern. Ich lege großen Wert darauf, die am Ende vorhandenen Scripte, Komponenten und Programmierungsansätze in vollem Umfang verstehen und nachvollziehen zu können.
+
+Durch meine berufliche Erfahrung, die ich während meinem gesamten Studium bereits gesammelt habe, weiß ich, dass LLMs im professionellen Programmierungskontext unverzichtbar geworden sind. Deswegen lehne ich es ab, dieses Werkzeug nicht im universitären Kontext zu nutzen und auch hier weitere Erfahrungen im Umgang damit zu machen. Ich bin mir meiner Verantwortung jedoch bewusst, LLMs korrekt einzusetzen und deren Nutzung erkenntlich zu machen. 
+
 == Fazit <fazit>
+Das Projekt zeigt, dass die Entwicklung einer funktionsfähigen MR-Anwendung mit A-Frame grundsätzlich machbar ist, jedoch mit erheblichen technischen Herausforderungen verbunden ist. Die ursprünglich erdachte Szene musste aufgrund zeitlicher und technischer Limitationen deutlich reduziert werden, jedoch hat die finale Umsetzung ihr konzeptionelles Ziel nicht zwingend verfehlt.
+
+Die abschließende Szene vermittelt die zu Anfangs gewollte inhaltliche Aussage: Die Gegenüberstellung des überdimensionalen Thronsaals, der LLMs als allmächtige, über uns thronende Entität inszeniert, mit der dunklen Blackbox und den negativen gesellschaftlichen Konsequenzen funktioniert auch in reduzierter Form. Die implementierten Interaktionsmöglichkeiten ermöglichen User*innen eine ausreichende Interaktion mit der Szene.
+
+Die größte Herausforderung stellte die unzureichende Dokumentation von A-Frame und dessen Community-Komponenten dar. Viele externe Packages sind veraltet oder inkompatibel mit der aktuellen A-Frame-Version, was zur Eigenentwicklung von Komponenten zwang. Besonders das Physics-System erwies sich als problematisch, da Limitationen bei der Laufzeit-Manipulation von Physics-Bodies nicht dokumentiert waren.
+
+Abschließend lässt sich festhalten, dass das Projekt trotz der Abweichungen vom ursprünglichen Konzept eine funktionsfähige MR-Erfahrung ist, die ihre kritische Aussage zur Rolle von LLMs in der Gesellschaft grundsätzlich herüberbringt.

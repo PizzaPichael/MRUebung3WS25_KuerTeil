@@ -1,4 +1,5 @@
 /*
+* This component has been written in colaboration with Codex Agent.
 * Chat interaction component for AR terminal.
 * It allows the user to select from predefined prompts and displays AI responses.
 */
