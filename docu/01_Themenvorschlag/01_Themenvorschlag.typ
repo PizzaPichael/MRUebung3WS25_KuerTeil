@@ -1,6 +1,8 @@
 = Einleitung
 Dieses Dokument stellt die Projektdokumentation für mein Projekt im Mixed Reality Modul des Wintersemesters 2025/2026 dar. Folgend lässt sich in @themenvorschlag der bereits vorgestellte Themenvorschlag für das Projekt finden, sowie in @abschlussdoku eine Abschlussdokumentation die sich mit der letztendlichen Umsetzung des Projektes befasst. Der Themenvorschlag wurde hier der Vollständigkeit wegen und für kontextuelle Konsistenz noch einmal mit aufgeführt.
 
+Die aktuelle Version des Projektes kann unter diesem GitHub-Pages Link, #underline[#text(fill: blue)[#link("https://pizzapichael.github.io/MRUebung3WS25_KuerTeil/")]], ausprobiert werden. 
+
 = Themenvorschlag <themenvorschlag>
 == Thema
 
